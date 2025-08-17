@@ -27,7 +27,7 @@ export default function Hero() {
         bgcolor: 'black'
       }}
     >
-      {/* Fond : WEBP si présent, fallback JPG ; cadrage et luminosité corrigés */}
+      {/* Fond (WEBP puis JPG) avec cadrage plus lisible */}
       <Box
         aria-hidden
         sx={{
@@ -35,13 +35,13 @@ export default function Hero() {
           inset: 0,
           backgroundImage: "url('/hero/hero-bg.webp'), url('/hero/hero-bg.jpg')",
           backgroundSize: 'cover',
-          backgroundPosition: 'center right 12%',   // place le tracteur derrière le titre
-          filter: 'brightness(0.7) contrast(1.05) saturate(1.05)', // + clair que 0.55
+          backgroundPosition: 'center right 12%',
+          filter: 'brightness(0.7) contrast(1.05) saturate(1.05)',
           transform: 'scale(1.01)',
         }}
       />
 
-      {/* Overlay doux pour lisibilité (moins agressif que précédemment) */}
+      {/* Overlay doux pour le contraste */}
       <Box
         aria-hidden
         sx={{
@@ -53,37 +53,27 @@ export default function Hero() {
       />
 
       <Container maxWidth="md" sx={{ position: 'relative', textAlign: 'center' }}>
-        {/* Logo : plus grand ; si ton PNG a un carré, on tente un blend pour l’atténuer */}
+        {/* LOGO (fond transparent) */}
         <Box
           component="img"
-          src="/axio-logo.png"         // ton fichier exact
+          src="/axio-logo.webp"
           alt="Axiofleet"
           sx={{
-            height: 108,
-            mb: 2,
+            height: { xs: 96, md: 120 },       // tailles “propres”
+            mb: 1.5,
             opacity: 0.98,
-            filter: 'drop-shadow(0 4px 24px rgba(0,0,0,.45))',
-            mixBlendMode: 'screen'     // atténue un fond sombre éventuel du PNG
+            filter: 'drop-shadow(0 4px 22px rgba(0,0,0,.45))',
           }}
+          onError={(e) => { e.currentTarget.onerror = null; e.currentTarget.src = '/axio-logo.png'; }}
         />
 
-        <Typography
-          component="h1"
-          sx={{
-            fontWeight: 800,
-            fontSize: 'clamp(56px, 10vw, 120px)',   // plus massif
-            letterSpacing: '-0.6px',
-            lineHeight: 1.04,
-          }}
-        >
-          axiofleet
-        </Typography>
+        {/* >>> Plus de mot “axiofleet” ici <<< */}
 
-        <Typography variant="h4" sx={{ mt: 1, opacity: 0.98 }}>
+        <Typography variant="h4" sx={{ mt: 0.5, opacity: 0.98 }}>
           Formation. Conseil. TMS
         </Typography>
 
-        <Typography variant="h6" sx={{ mt: 1.5, color: 'rgba(255,255,255,0.95)' }}>
+        <Typography variant="h6" sx={{ mt: 1.25, color: 'rgba(255,255,255,0.95)' }}>
           L’expertise transport qui accélère votre performance.
         </Typography>
 
