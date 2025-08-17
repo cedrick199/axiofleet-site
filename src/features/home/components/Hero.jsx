@@ -11,11 +11,9 @@ const LOGO_WEBP = `/axio-logo.webp?v=${ASSETS_VERSION}`;
 const LOGO_PNG  = `/axio-logo.png?v=${ASSETS_VERSION}`;
 
 export default function Hero() {
-  const onDiscover = () => {
-    if (typeof window !== 'undefined' && typeof window.plausible === 'function') {
-      window.plausible('CTA_Discover_Hero', { props: { location: 'Hero' } });
-    }
-    window.location.href = '/formations';
+  const onPrimary = () => {
+    window?.plausible?.('CTA_Devis', { props: { location: 'Hero' } });
+    window.location.href = '/presentation';
   };
 
   return (
@@ -23,9 +21,8 @@ export default function Hero() {
       id="hero"
       sx={{
         position: 'relative',
-        width: '100%',          // <- plein largeur
-        height: '100%',         // <- suit 100dvh du parent
-        flex: '1 1 auto',
+        width: '100%',
+        height: '100%',
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'center',
@@ -42,9 +39,8 @@ export default function Hero() {
           inset: 0,
           backgroundImage: `url('${BG_WEBP}')`,
           backgroundSize: 'cover',
-          backgroundPosition: 'center right 10%',
+          backgroundPosition: 'center right 12%',
           filter: 'brightness(1.05) contrast(0.98) saturate(1.06)',
-          // surtout pas de transform/scale ici (sinon 1px de débordement)
         }}
       />
 
@@ -62,6 +58,7 @@ export default function Hero() {
       />
 
       <Container maxWidth="md" sx={{ position: 'relative', textAlign: 'center' }}>
+        {/* LOGO uniquement (pas de titre redondant) */}
         <Box
           component="img"
           src={LOGO_WEBP}
@@ -69,30 +66,49 @@ export default function Hero() {
           sx={{
             height: { xs: 154, md: 192 },
             mt: { xs: -6, md: -6 },
-            mb: { xs: 3, md: 3.5 },
+            mb: { xs: 3.5, md: 4 },
             opacity: 0.98,
             filter: 'drop-shadow(0 4px 22px rgba(0,0,0,.30))',
           }}
           onError={(e) => { e.currentTarget.onerror = null; e.currentTarget.src = LOGO_PNG; }}
         />
 
-        {/* (pas de titre texte) */}
-        <Typography variant="h4" sx={{ mt: 0.5, opacity: 0.98 }}>
-          Formation. Conseil. TMS
+        {/* H1 SEO unique */}
+        <Typography
+          component="h1"
+          sx={{
+            fontWeight: 800,
+            letterSpacing: 0.2,
+            textShadow: '0 1px 10px rgba(0,0,0,.35)',
+            fontSize: { xs: '28px', md: '40px' },
+            lineHeight: { xs: 1.15, md: 1.2 },
+          }}
+        >
+          Formations & Conseil transport (TRM) • Solutions informatiques
         </Typography>
 
-        <Typography variant="h6" sx={{ mt: 1.25, color: 'rgba(255,255,255,0.96)' }}>
+        {/* Tagline */}
+        <Typography
+          component="p"
+          sx={{
+            mt: 1.5,
+            color: 'rgba(255,255,255,0.96)',
+            fontSize: { xs: '18px', md: '22px' },
+            lineHeight: { xs: 1.35, md: 1.35 },
+          }}
+        >
           L’expertise transport qui accélère votre performance.
         </Typography>
 
+        {/* CTA principal */}
         <Stack direction="row" justifyContent="center" sx={{ mt: 3 }}>
           <Button
             size="large"
             variant="contained"
-            onClick={onDiscover}
+            onClick={onPrimary}
             sx={{ px: 4, py: 1.25, borderRadius: '9999px', fontWeight: 700 }}
           >
-            Découvrir
+            Demander un devis
           </Button>
         </Stack>
       </Container>
