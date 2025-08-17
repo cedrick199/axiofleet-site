@@ -7,8 +7,9 @@ import Typography from '@mui/material/Typography';
 
 export default function Hero() {
   const onDiscover = () => {
-    window?.plausible?.('CTA_Discover_Hero', { props: { location: 'Hero' } });
-    // ancre vers la grille modules (ou change pour /formations)
+    if (typeof window !== 'undefined' && typeof window.plausible === 'function') {
+      window.plausible('CTA_Discover_Hero', { props: { location: 'Hero' } });
+    }
     document.getElementById('modules')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
   };
 
@@ -17,59 +18,82 @@ export default function Hero() {
       id="hero"
       sx={{
         position: 'relative',
-        minHeight: { xs: '72vh', md: '78vh' }, // au-dessus de la ligne de flottaison
+        minHeight: '100vh',
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'center',
-        bgcolor: 'black',
         color: '#fff',
         overflow: 'hidden',
+        bgcolor: 'black'
       }}
     >
-      {/* Photo de fond */}
+      {/* Fond : WEBP si présent, fallback JPG ; cadrage et luminosité corrigés */}
       <Box
         aria-hidden
         sx={{
           position: 'absolute',
           inset: 0,
-          backgroundImage: "url('/hero/hero-bg.jpg')",
+          backgroundImage: "url('/hero/hero-bg.webp'), url('/hero/hero-bg.jpg')",
           backgroundSize: 'cover',
-          backgroundPosition: 'center',
-          filter: 'brightness(0.55) saturate(0.9)',
-          transform: 'scale(1.02)',
+          backgroundPosition: 'center right 12%',   // place le tracteur derrière le titre
+          filter: 'brightness(0.7) contrast(1.05) saturate(1.05)', // + clair que 0.55
+          transform: 'scale(1.01)',
         }}
       />
-      {/* Overlay dégradé subtil pour lisibilité */}
+
+      {/* Overlay doux pour lisibilité (moins agressif que précédemment) */}
       <Box
         aria-hidden
         sx={{
           position: 'absolute',
           inset: 0,
           background:
-            'radial-gradient(60% 60% at 50% 40%, rgba(0,0,0,0.2) 0%, rgba(0,0,0,0.6) 60%, rgba(0,0,0,0.75) 100%)',
+            'radial-gradient(65% 60% at 52% 40%, rgba(0,0,0,0.18) 0%, rgba(0,0,0,0.45) 58%, rgba(0,0,0,0.68) 100%)',
         }}
       />
 
-      {/* Contenu */}
       <Container maxWidth="md" sx={{ position: 'relative', textAlign: 'center' }}>
+        {/* Logo : plus grand ; si ton PNG a un carré, on tente un blend pour l’atténuer */}
         <Box
           component="img"
-          src="/axio-logo-mark.svg"
-          alt="Logo Axiofleet"
-          sx={{ height: 72, mb: 2, opacity: 0.95 }}
+          src="/axio-logo.png"         // ton fichier exact
+          alt="Axiofleet"
+          sx={{
+            height: 108,
+            mb: 2,
+            opacity: 0.98,
+            filter: 'drop-shadow(0 4px 24px rgba(0,0,0,.45))',
+            mixBlendMode: 'screen'     // atténue un fond sombre éventuel du PNG
+          }}
         />
-        <Typography component="h1" variant="h2" sx={{ fontWeight: 900, letterSpacing: '-0.5px' }}>
+
+        <Typography
+          component="h1"
+          sx={{
+            fontWeight: 800,
+            fontSize: 'clamp(56px, 10vw, 120px)',   // plus massif
+            letterSpacing: '-0.6px',
+            lineHeight: 1.04,
+          }}
+        >
           axiofleet
         </Typography>
-        <Typography variant="h5" sx={{ mt: 1, opacity: 0.95 }}>
+
+        <Typography variant="h4" sx={{ mt: 1, opacity: 0.98 }}>
           Formation. Conseil. TMS
         </Typography>
-        <Typography variant="h6" sx={{ mt: 1.5, color: 'rgba(255,255,255,0.9)' }}>
+
+        <Typography variant="h6" sx={{ mt: 1.5, color: 'rgba(255,255,255,0.95)' }}>
           L’expertise transport qui accélère votre performance.
         </Typography>
 
         <Stack direction="row" justifyContent="center" sx={{ mt: 3 }}>
-          <Button size="large" variant="contained" onClick={onDiscover}>
+          <Button
+            size="large"
+            variant="contained"
+            onClick={onDiscover}
+            sx={{ px: 4, py: 1.25, borderRadius: '9999px', fontWeight: 700 }}
+          >
             Découvrir
           </Button>
         </Stack>
