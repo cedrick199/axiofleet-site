@@ -1,0 +1,4 @@
+﻿:root{--bg:#0b0e13;--fg:#e6e9ef;--muted:#9aa3b2;--primary:#68b4ff}
+html,body,#root{height:100%}
+body{margin:0;background:radial-gradient(1200px 800px at 70% -10%,#10141b 0%,#0b0e13 40%,#080a0f 100%);color:var(--fg);font-synthesis-weight:none;-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale}
+a{color:inherit;text-decoration:none}
