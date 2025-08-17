@@ -23,16 +23,18 @@ export default function Hero() {
       id="hero"
       sx={{
         position: 'relative',
-        height: '100%',          // <= suit la hauteur 100dvh du parent
+        width: '100%',          // <- plein largeur
+        height: '100%',         // <- suit 100dvh du parent
+        flex: '1 1 auto',
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'center',
         color: '#fff',
-        overflow: 'hidden',      // <= empêche tout débordement
+        overflow: 'hidden',
         bgcolor: 'black',
       }}
     >
-      {/* Fond : image renommée & versionnée */}
+      {/* Fond plein écran */}
       <Box
         aria-hidden
         sx={{
@@ -42,11 +44,11 @@ export default function Hero() {
           backgroundSize: 'cover',
           backgroundPosition: 'center right 10%',
           filter: 'brightness(1.05) contrast(0.98) saturate(1.06)',
-          // IMPORTANT: pas de transform/scale ici pour éviter 1px de débordement
+          // surtout pas de transform/scale ici (sinon 1px de débordement)
         }}
       />
 
-      {/* Overlay très léger */}
+      {/* Overlay léger pour lisibilité */}
       <Box
         aria-hidden
         sx={{
@@ -60,7 +62,6 @@ export default function Hero() {
       />
 
       <Container maxWidth="md" sx={{ position: 'relative', textAlign: 'center' }}>
-        {/* Logo (fond transparent) */}
         <Box
           component="img"
           src={LOGO_WEBP}
@@ -75,7 +76,7 @@ export default function Hero() {
           onError={(e) => { e.currentTarget.onerror = null; e.currentTarget.src = LOGO_PNG; }}
         />
 
-        {/* Titre supprimé */}
+        {/* (pas de titre texte) */}
         <Typography variant="h4" sx={{ mt: 0.5, opacity: 0.98 }}>
           Formation. Conseil. TMS
         </Typography>
