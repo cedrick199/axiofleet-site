@@ -27,7 +27,7 @@ export default function Hero() {
         bgcolor: 'black'
       }}
     >
-      {/* Fond (WEBP puis JPG) avec cadrage plus lisible */}
+      {/* Fond */}
       <Box
         aria-hidden
         sx={{
@@ -40,8 +40,7 @@ export default function Hero() {
           transform: 'scale(1.01)',
         }}
       />
-
-      {/* Overlay doux pour le contraste */}
+      {/* Overlay */}
       <Box
         aria-hidden
         sx={{
@@ -53,23 +52,35 @@ export default function Hero() {
       />
 
       <Container maxWidth="md" sx={{ position: 'relative', textAlign: 'center' }}>
-        {/* LOGO (fond transparent) */}
+        {/* LOGO : +33% (96→128, 120→160) et remonté */}
         <Box
           component="img"
           src="/axio-logo.webp"
           alt="Axiofleet"
           sx={{
-            height: { xs: 96, md: 120 },       // tailles “propres”
-            mb: 1.5,
+            height: { xs: 128, md: 160 },      // +33%
+            mt: { xs: -2, md: -3 },            // remonte le logo
+            mb: 1.25,
             opacity: 0.98,
             filter: 'drop-shadow(0 4px 22px rgba(0,0,0,.45))',
           }}
           onError={(e) => { e.currentTarget.onerror = null; e.currentTarget.src = '/axio-logo.png'; }}
         />
 
-        {/* >>> Plus de mot “axiofleet” ici <<< */}
+        {/* Titre si tu le gardes encore (sinon supprime ce bloc) */}
+        <Typography
+          component="h1"
+          sx={{
+            fontWeight: 800,
+            fontSize: 'clamp(56px, 10vw, 120px)',
+            letterSpacing: '-0.6px',
+            lineHeight: 1.04,
+          }}
+        >
+          axiofleet
+        </Typography>
 
-        <Typography variant="h4" sx={{ mt: 0.5, opacity: 0.98 }}>
+        <Typography variant="h4" sx={{ mt: 1, opacity: 0.98 }}>
           Formation. Conseil. TMS
         </Typography>
 
