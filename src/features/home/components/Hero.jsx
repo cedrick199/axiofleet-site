@@ -5,12 +5,18 @@ import Stack from '@mui/material/Stack';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 
+// --- Cache-busting simple : change cette valeur si tu remplaces une image
+const ASSETS_VERSION = '20250822';
+const BG_WEBP   = `/hero/hero-bg-renault-v1.webp?v=${ASSETS_VERSION}`;
+const LOGO_WEBP = `/axio-logo.webp?v=${ASSETS_VERSION}`;
+const LOGO_PNG  = `/axio-logo.png?v=${ASSETS_VERSION}`;
+
 export default function Hero() {
   const onDiscover = () => {
     if (typeof window !== 'undefined' && typeof window.plausible === 'function') {
       window.plausible('CTA_Discover_Hero', { props: { location: 'Hero' } });
     }
-    // Pas de scroll interne : on sort vers la page Formations
+    // Home = 1 écran : redirection vers la page Formations
     window.location.href = '/formations';
   };
 
@@ -19,7 +25,7 @@ export default function Hero() {
       id="hero"
       sx={{
         position: 'relative',
-        minHeight: '100svh', // occupe exactement la hauteur d'écran
+        minHeight: '100svh',
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'center',
@@ -28,13 +34,13 @@ export default function Hero() {
         bgcolor: 'black',
       }}
     >
-      {/* Fond clair (camion) */}
+      {/* Fond : uniquement la nouvelle image renommée + versionnée (pas de fallback) */}
       <Box
         aria-hidden
         sx={{
           position: 'absolute',
           inset: 0,
-          backgroundImage: "url('/hero/hero-bg.webp'), url('/hero/hero-bg.jpg')",
+          backgroundImage: `url('${BG_WEBP}')`,
           backgroundSize: 'cover',
           backgroundPosition: 'center right 10%',
           filter: 'brightness(1.05) contrast(0.98) saturate(1.06)',
@@ -42,7 +48,7 @@ export default function Hero() {
         }}
       />
 
-      {/* Overlay très léger pour lisibilité */}
+      {/* Overlay léger pour lisibilité */}
       <Box
         aria-hidden
         sx={{
@@ -56,10 +62,10 @@ export default function Hero() {
       />
 
       <Container maxWidth="md" sx={{ position: 'relative', textAlign: 'center' }}>
-        {/* Logo (transparent) — agrandi & remonté */}
+        {/* Logo (fond transparent) */}
         <Box
           component="img"
-          src="/axio-logo.webp"
+          src={LOGO_WEBP}
           alt="Axiofleet"
           sx={{
             height: { xs: 154, md: 192 },
@@ -68,10 +74,10 @@ export default function Hero() {
             opacity: 0.98,
             filter: 'drop-shadow(0 4px 22px rgba(0,0,0,.30))',
           }}
-          onError={(e) => { e.currentTarget.onerror = null; e.currentTarget.src = '/axio-logo.png'; }}
+          onError={(e) => { e.currentTarget.onerror = null; e.currentTarget.src = LOGO_PNG; }}
         />
 
-        {/* Titre supprimé — on garde uniquement le slogan + punchline */}
+        {/* (titre texte supprimé) */}
         <Typography variant="h4" sx={{ mt: 0.5, opacity: 0.98 }}>
           Formation. Conseil. TMS
         </Typography>
