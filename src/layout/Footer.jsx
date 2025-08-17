@@ -1,31 +1,15 @@
 ﻿import React from 'react';
 import Box from '@mui/material/Box';
 import Container from '@mui/material/Container';
-import Stack from '@mui/material/Stack';
-import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
-import useMediaQuery from '@mui/material/useMediaQuery';
-import { useTheme } from '@mui/material/styles';
+import { useLocation } from 'react-router-dom';
 
 export default function Footer() {
-  const theme = useTheme();
-  const isSm = useMediaQuery(theme.breakpoints.down('sm'));
+  const { pathname } = useLocation();
+  // On masque totalement le footer sur la home pour garantir 0 scroll
+  if (pathname === '/' || pathname === '/accueil') return null;
+
   const year = new Date().getFullYear();
-
-  const goDevis = () => {
-    if (typeof window !== 'undefined' && typeof window.plausible === 'function') {
-      window.plausible('CTA_Devis', { props: { location: 'Footer' } });
-    }
-    window.location.href = '/contact';
-  };
-
-  const goFormation = () => {
-    if (typeof window !== 'undefined' && typeof window.plausible === 'function') {
-      window.plausible('CTA_Formation', { props: { location: 'Footer' } });
-    }
-    window.location.href = '/formations';
-  };
-
   return (
     <Box
       component="footer"
@@ -36,36 +20,21 @@ export default function Footer() {
         right: 0,
         bottom: 0,
         zIndex: (t) => t.zIndex.appBar,
-        bgcolor: 'rgba(12,12,14,0.45)',               // translucide
-        backdropFilter: 'saturate(160%) blur(10px)',   // effet verre
+        bgcolor: 'rgba(12,12,14,0.38)',
+        backdropFilter: 'blur(8px) saturate(140%)',
         borderTop: '1px solid rgba(255,255,255,0.06)',
-        py: 1,
-        pb: 'calc(8px + env(safe-area-inset-bottom))', // safe area iOS
-        WebkitTapHighlightColor: 'transparent',
+        py: 0.75,
+        pb: 'calc(6px + env(safe-area-inset-bottom))',
       }}
     >
       <Container
         maxWidth="lg"
-        sx={{
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'space-between',
-          gap: 2,
-          flexWrap: 'wrap',
-        }}
+        sx={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: 2 }}
       >
-        <Typography variant="body2" sx={{ opacity: 0.8 }}>
+        <Typography variant="caption" sx={{ opacity: 0.8 }}>
           © {year} Axiofleet — Formation & Conseil
         </Typography>
-
-        <Stack direction="row" spacing={1} sx={{ width: { xs: '100%', sm: 'auto' }, justifyContent: { xs: 'flex-end', sm: 'unset' } }}>
-          <Button size={isSm ? 'small' : 'medium'} variant="outlined" onClick={goFormation}>
-            Réserver une formation
-          </Button>
-          <Button size={isSm ? 'small' : 'medium'} variant="contained" onClick={goDevis}>
-            Demander un devis
-          </Button>
-        </Stack>
+        <span />
       </Container>
     </Box>
   );

@@ -5,7 +5,6 @@ import Stack from '@mui/material/Stack';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 
-// --- Cache-busting simple : change cette valeur si tu remplaces une image
 const ASSETS_VERSION = '20250822';
 const BG_WEBP   = `/hero/hero-bg-renault-v1.webp?v=${ASSETS_VERSION}`;
 const LOGO_WEBP = `/axio-logo.webp?v=${ASSETS_VERSION}`;
@@ -16,7 +15,6 @@ export default function Hero() {
     if (typeof window !== 'undefined' && typeof window.plausible === 'function') {
       window.plausible('CTA_Discover_Hero', { props: { location: 'Hero' } });
     }
-    // Home = 1 écran : redirection vers la page Formations
     window.location.href = '/formations';
   };
 
@@ -25,16 +23,16 @@ export default function Hero() {
       id="hero"
       sx={{
         position: 'relative',
-        minHeight: '100svh',
+        height: '100%',          // <= suit la hauteur 100dvh du parent
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'center',
         color: '#fff',
-        overflow: 'hidden',
+        overflow: 'hidden',      // <= empêche tout débordement
         bgcolor: 'black',
       }}
     >
-      {/* Fond : uniquement la nouvelle image renommée + versionnée (pas de fallback) */}
+      {/* Fond : image renommée & versionnée */}
       <Box
         aria-hidden
         sx={{
@@ -44,11 +42,11 @@ export default function Hero() {
           backgroundSize: 'cover',
           backgroundPosition: 'center right 10%',
           filter: 'brightness(1.05) contrast(0.98) saturate(1.06)',
-          transform: 'scale(1.003)',
+          // IMPORTANT: pas de transform/scale ici pour éviter 1px de débordement
         }}
       />
 
-      {/* Overlay léger pour lisibilité */}
+      {/* Overlay très léger */}
       <Box
         aria-hidden
         sx={{
@@ -77,7 +75,7 @@ export default function Hero() {
           onError={(e) => { e.currentTarget.onerror = null; e.currentTarget.src = LOGO_PNG; }}
         />
 
-        {/* (titre texte supprimé) */}
+        {/* Titre supprimé */}
         <Typography variant="h4" sx={{ mt: 0.5, opacity: 0.98 }}>
           Formation. Conseil. TMS
         </Typography>
