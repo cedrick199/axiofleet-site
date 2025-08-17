@@ -1,32 +1,97 @@
-import * as React from "react";
-import { Card, CardContent, CardActions, Button, Typography, Chip, Stack } from "@mui/material";
-import { track } from "../../../lib/analytics/plausible";
+import React from 'react';
+import Card from '@mui/material/Card';
+import CardContent from '@mui/material/CardContent';
+import CardActions from '@mui/material/CardActions';
+import Typography from '@mui/material/Typography';
+import Button from '@mui/material/Button';
+import Chip from '@mui/material/Chip';
+import Stack from '@mui/material/Stack';
+import PropTypes from 'prop-types';
 
-export default function FormationCard({ f }) {
+/** Petit helper pour tracer sans crasher si window/plausible est absent */
+function track(event, id, extraProps) {
+  if (typeof window !== 'undefined' && typeof window.plausible === 'function') {
+    window.plausible(event, { props: { id: id ?? 'unknown', ...(extraProps || {}) } });
+  }
+}
+
+/**
+ * Props attendues :
+ * - formation: {
+ *     id: string, title: string, level?: string, duration?: string,
+ *     objectives?: string[], pdf?: string
+ *   }
+ * - onDevis?: (formation) => void
+ */
+export default function FormationCard({ formation = {}, onDevis }) {
+  const {
+    id,
+    title = 'Formation',
+    level,
+    duration,
+    objectives = [],
+    pdf
+  } = formation;
+
+  const openPdf = () => {
+    if (!pdf) return;
+    track('Formation_PDF', id);
+    window.open(pdf, '_blank', 'noopener,noreferrer');
+  };
+
+  const askDevis = () => {
+    track('Formation_Devis', id);
+    if (typeof onDevis === 'function') return onDevis(formation);
+    window.location.href = '/contact';
+  };
+
+  // Clé de liste stable et unique même si id absent ou objectifs dupliqués
+  const keyForObj = (obj, i) => `${id ?? 'formation'}-${i}-${String(obj).slice(0, 24)}`;
+
   return (
-    <Card variant="outlined" sx={{ height: "100%" }}>
+    <Card variant="outlined" sx={{ borderRadius: 3, height: '100%' }}>
       <CardContent>
-        <Stack direction="row" spacing={1} sx={{ mb: 1 }}>
-          <Chip label={f.duree} size="small" />
-          <Chip label={f.niveau} size="small" />
+        <Stack direction="row" spacing={1} alignItems="center" mb={0.5}>
+          <Typography variant="h6" fontWeight={800}>{title}</Typography>
+          {level && <Chip size="small" label={level} />}
+          {duration && <Chip size="small" label={duration} />}
         </Stack>
-        <Typography variant="h6" sx={{ fontWeight: 700, mb: 1 }}>{f.titre}</Typography>
-        <ul style={{ margin: 0, paddingLeft: "1.2rem", color: "rgba(255,255,255,.75)" }}>
-          {f.objectifs?.map((o, i) => <li key={i}>{o}</li>)}
-        </ul>
+
+        {Array.isArray(objectives) && objectives.length > 0 && (
+          <ul style={{ marginTop: 8, paddingLeft: '1.2rem' }}>
+            {objectives.map((obj, i) => (
+              <li key={keyForObj(obj, i)}>
+                <Typography variant="body2">{String(obj)}</Typography>
+              </li>
+            ))}
+          </ul>
+        )}
       </CardContent>
+
       <CardActions sx={{ px: 2, pb: 2 }}>
-        <Button href={f.pdf} target="_blank" rel="noopener" onClick={() => track("Formation_PDF", { slug: f.slug })}>
-          Programme (PDF)
-        </Button>
-        <Button
-          href={`/contact?sujet=Devis%20formation%20-%20${encodeURIComponent(f.titre)}`}
-          variant="contained"
-          onClick={() => track("Formation_Devis", { slug: f.slug })}
-        >
+        {pdf && (
+          <Button variant="text" onClick={openPdf}>
+            Programme (PDF)
+          </Button>
+        )}
+        <Button variant="contained" onClick={askDevis}>
           Demander un devis
         </Button>
       </CardActions>
     </Card>
   );
 }
+
+FormationCard.propTypes = {
+  formation: PropTypes.shape({
+    id: PropTypes.string,
+    title: PropTypes.string,
+    level: PropTypes.string,
+    duration: PropTypes.string,
+    objectives: PropTypes.arrayOf(
+      PropTypes.oneOfType([PropTypes.string, PropTypes.number])
+    ),
+    pdf: PropTypes.string
+  }),
+  onDevis: PropTypes.func
+};

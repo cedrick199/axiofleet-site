@@ -1,57 +1,63 @@
-﻿import * as React from "react";
-import { Stack, Button, Typography, Box } from "@mui/material";
-import { Link } from "react-router-dom";
-import Section from "../../components/common/Section.jsx";
-import SectionTitle from "../../components/common/SectionTitle.jsx";
-import StickyCTA from "../../components/common/StickyCTA.jsx";
-import { track } from "../../lib/analytics/plausible";
+﻿import React, { Suspense } from 'react';
+import Box from '@mui/material/Box';
+import Container from '@mui/material/Container';
+import Typography from '@mui/material/Typography';
+import Stack from '@mui/material/Stack';
+import Button from '@mui/material/Button';
+import Section from '@/components/common/Section.jsx';
+import SectionTitle from '@/components/common/SectionTitle.jsx';
+
+// Hero visuel plein-écran
+import Hero from './components/Hero.jsx';
+
+// Lazy des blocs pour charger vite l'above-the-fold
+const ModuleGrid = React.lazy(() => import('./components/ModuleGrid.jsx'));
+const ClientLogos = React.lazy(() => import('./components/ClientLogos.jsx'));
+const Testimonials = React.lazy(() => import('./components/Testimonials.jsx'));
 
 export default function Home() {
+  const goDevis = () => {
+    window?.plausible?.('CTA_Devis', { props: { location: 'Why' } });
+    window.location.href = '/contact';
+  };
+  const goFormation = () => {
+    window?.plausible?.('CTA_Formation', { props: { location: 'Why' } });
+    window.location.href = '/formations';
+  };
+
   return (
-    <>
-      <Section sx={{ textAlign: "center" }}>
-        <Box component="h1" sx={{ m: 0, fontSize: { xs: 44, sm: 56 }, fontWeight: 900, letterSpacing: 1 }}>
-          axiofleet
-        </Box>
+    <Box>
+      <Hero />
 
-        <Typography sx={{ color: "text.secondary", mb: 3 }}>
-          Formations & Conseil TRM — passez de la contrainte à la performance.
-        </Typography>
+      {/* POURQUOI visible juste sous le hero */}
+      <Section id="pourquoi" sx={{ py: 6 }}>
+        <Container maxWidth="lg">
+          <SectionTitle
+            title="Pourquoi Axiofleet ?"
+            subtitle="Gain de temps · Conformité · Efficacité opérationnelle"
+          />
+          <Typography color="text.secondary" sx={{ maxWidth: 900 }}>
+            Expertise terrain, résultats mesurables, approche premium et pragmatique.
+          </Typography>
 
-        <Stack direction="row" gap={2} justifyContent="center">
-          <Button
-            component={Link}
-            to="/contact"
-            variant="contained"
-            size="large"
-            onClick={() => track("CTA_Devis", { source: "home_hero" })}
-          >
-            Demander un devis
-          </Button>
-          <Button
-            component={Link}
-            to="/formations"
-            variant="outlined"
-            color="inherit"
-            size="large"
-            onClick={() => track("CTA_Formation", { source: "home_hero" })}
-          >
-            RÉSERVER UNE FORMATION
-          </Button>
-        </Stack>
+          {/* CTA visibles et trackés → utilise goDevis (supprime l'avertissement Sonar) */}
+          <Stack direction="row" spacing={2} sx={{ mt: 3 }}>
+            <Button variant="contained" size="large" onClick={goDevis}>
+              Demander un devis
+            </Button>
+            <Button variant="outlined" size="large" onClick={goFormation}>
+              Réserver une formation
+            </Button>
+          </Stack>
+        </Container>
       </Section>
 
-      <Section>
-        <SectionTitle
-          title="Pourquoi Axiofleet ?"
-          subtitle="Gain de temps · Conformité · Efficacité opérationnelle"
-        />
-        <Typography sx={{ color: "rgba(255,255,255,.7)" }}>
-          Expertise terrain, résultats mesurables, approche premium et pragmatique.
-        </Typography>
-      </Section>
-
-      <StickyCTA />
-    </>
+      {/* Modules + social proof en lazy */}
+      <Suspense fallback={null}>
+        <ModuleGrid />
+        <ClientLogos />
+        <Testimonials />
+      </Suspense>
+    </Box>
   );
 }

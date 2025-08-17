@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="128" height="128" viewBox="0 0 128 128" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="g" x1="0" y1="0" x2="128" y2="128" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#5AD0FF"/>
+      <stop offset="1" stop-color="#1E90FF"/>
+    </linearGradient>
+  </defs>
+  <!-- Hexagone -->
+  <path d="M64 6l40.5 23.4v46.8L64 99.6 23.5 76.2V29.4L64 6z" stroke="url(#g)" stroke-width="8" fill="none" stroke-linejoin="round"/>
+  <!-- Branchements -->
+  <circle cx="44" cy="54" r="5.5" fill="#0DF"/>
+  <circle cx="84" cy="40" r="5.5" fill="#0DF"/>
+  <circle cx="84" cy="76" r="5.5" fill="#0DF"/>
+  <path d="M48 54h18M66 54c10 0 12-8 18-13M66 54c10 0 12 8 18 13" stroke="#0DF" stroke-width="5" stroke-linecap="round" fill="none"/>
+</svg>
