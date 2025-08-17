@@ -84,7 +84,7 @@ export default function Hero() {
             lineHeight: { xs: 1.15, md: 1.2 },
           }}
         >
-          Formations & Conseil transport (TRM) • Solutions informatiques
+          Formations & Conseil transport (TRM) Solutions informatiques
         </Typography>
 
         {/* Tagline */}
@@ -97,10 +97,10 @@ export default function Hero() {
             lineHeight: { xs: 1.35, md: 1.35 },
           }}
         >
-          L’expertise transport qui accélère votre performance.
+          L’expertise transport qui accélère vos performances.
         </Typography>
 
-        {/* CTA principal */}
+        {/* CTA principal -> /presentation */}
         <Stack direction="row" justifyContent="center" sx={{ mt: 3 }}>
           <Button
             size="large"
@@ -108,7 +108,7 @@ export default function Hero() {
             onClick={onPrimary}
             sx={{ px: 4, py: 1.25, borderRadius: '9999px', fontWeight: 700 }}
           >
-            Demander un devis
+            Découvrir nos solutions
           </Button>
         </Stack>
       </Container>
