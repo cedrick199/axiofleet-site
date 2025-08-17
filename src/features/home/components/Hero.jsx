@@ -27,7 +27,7 @@ export default function Hero() {
         bgcolor: 'black'
       }}
     >
-      {/* Fond */}
+      {/* Fond plus clair */}
       <Box
         aria-hidden
         sx={{
@@ -35,56 +35,45 @@ export default function Hero() {
           inset: 0,
           backgroundImage: "url('/hero/hero-bg.webp'), url('/hero/hero-bg.jpg')",
           backgroundSize: 'cover',
-          backgroundPosition: 'center right 12%',
-          filter: 'brightness(0.7) contrast(1.05) saturate(1.05)',
-          transform: 'scale(1.01)',
+          backgroundPosition: 'center right 10%',
+          filter: 'brightness(0.9) contrast(1.02) saturate(1.08)',
+          transform: 'scale(1.005)',
         }}
       />
-      {/* Overlay */}
+      {/* Overlay léger */}
       <Box
         aria-hidden
         sx={{
           position: 'absolute',
           inset: 0,
-          background:
-            'radial-gradient(65% 60% at 52% 40%, rgba(0,0,0,0.18) 0%, rgba(0,0,0,0.45) 58%, rgba(0,0,0,0.68) 100%)',
+          background: `
+            linear-gradient(to bottom, rgba(0,0,0,0) 0%, rgba(0,0,0,0.18) 65%, rgba(0,0,0,0.30) 100%),
+            radial-gradient(62% 58% at 52% 40%, rgba(0,0,0,0.08) 0%, rgba(0,0,0,0.22) 58%, rgba(0,0,0,0.36) 100%)
+          `,
         }}
       />
 
       <Container maxWidth="md" sx={{ position: 'relative', textAlign: 'center' }}>
-        {/* LOGO : +33% (96→128, 120→160) et remonté */}
+        {/* LOGO : remonté + plus d'espace sous le logo */}
         <Box
           component="img"
           src="/axio-logo.webp"
           alt="Axiofleet"
           sx={{
-            height: { xs: 128, md: 160 },      // +33%
-            mt: { xs: -2, md: -3 },            // remonte le logo
-            mb: 1.25,
+            height: { xs: 154, md: 192 },
+            mt: { xs: -6, md: -6 },             // ← remonte le logo
+            mb: { xs: 3, md: 3.5 },              // ← plus d'espace avec le slogan
             opacity: 0.98,
-            filter: 'drop-shadow(0 4px 22px rgba(0,0,0,.45))',
+            filter: 'drop-shadow(0 4px 22px rgba(0,0,0,.35))',
           }}
           onError={(e) => { e.currentTarget.onerror = null; e.currentTarget.src = '/axio-logo.png'; }}
         />
 
-        {/* Titre si tu le gardes encore (sinon supprime ce bloc) */}
-        <Typography
-          component="h1"
-          sx={{
-            fontWeight: 800,
-            fontSize: 'clamp(56px, 10vw, 120px)',
-            letterSpacing: '-0.6px',
-            lineHeight: 1.04,
-          }}
-        >
-          axiofleet
-        </Typography>
-
-        <Typography variant="h4" sx={{ mt: 1, opacity: 0.98 }}>
+        <Typography variant="h4" sx={{ mt: 0.5, opacity: 0.98 }}>
           Formation. Conseil. TMS
         </Typography>
 
-        <Typography variant="h6" sx={{ mt: 1.25, color: 'rgba(255,255,255,0.95)' }}>
+        <Typography variant="h6" sx={{ mt: 1.25, color: 'rgba(255,255,255,0.96)' }}>
           L’expertise transport qui accélère votre performance.
         </Typography>
 
