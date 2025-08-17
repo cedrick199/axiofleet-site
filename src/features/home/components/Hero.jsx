@@ -61,7 +61,7 @@ export default function Hero() {
           alt="Axiofleet"
           sx={{
             height: { xs: 154, md: 192 },
-            mt: { xs: -6, md: -6 },             // ← remonte le logo
+            mt: { xs: -4, md: -4 },             // ← remonte le logo
             mb: { xs: 3, md: 3.5 },              // ← plus d'espace avec le slogan
             opacity: 0.98,
             filter: 'drop-shadow(0 4px 22px rgba(0,0,0,.35))',
@@ -73,7 +73,7 @@ export default function Hero() {
           Formation. Conseil. TMS
         </Typography>
 
-        <Typography variant="h6" sx={{ mt: 1.25, color: 'rgba(255,255,255,0.96)' }}>
+        <Typography variant="h6" sx={{ mt: 1.50, color: 'rgba(255,255,255,0.96)' }}>
           L’expertise transport qui accélère votre performance.
         </Typography>
 
