@@ -1,4 +1,4 @@
-import React from 'react';
+﻿import React from 'react';
 import { Box, Container } from '@mui/material';
 import Section from '@/components/common/Section.jsx';
 import SectionTitle from '@/components/common/SectionTitle.jsx';
@@ -26,3 +26,4 @@ export default function ClientLogos() {
     </Section>
   );
 }
+

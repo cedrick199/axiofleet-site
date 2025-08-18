@@ -1,4 +1,4 @@
-import React from 'react';
+﻿import React from 'react';
 import { Container, Grid, Card, CardContent, Avatar, Typography, Rating, Stack, Button } from '@mui/material';
 import Section from '@/components/common/Section.jsx';
 import SectionTitle from '@/components/common/SectionTitle.jsx';
@@ -13,7 +13,7 @@ export default function Testimonials() {
   return (
     <Section id="temoignages">
       <Container maxWidth="lg">
-        <SectionTitle title="Résultats prouvés" subtitle="Témoignages de clients" />
+        <SectionTitle title="RÃ©sultats prouvÃ©s" subtitle="TÃ©moignages de clients" />
         <Grid container spacing={3}>
           {testimonials.map(t => (
             <Grid key={t.id} item xs={12} md={4}>
@@ -27,7 +27,7 @@ export default function Testimonials() {
                     </div>
                   </Stack>
                   <Rating value={t.rating} readOnly size="small" sx={{ mb: 1 }} />
-                  <Typography>« {t.content} »</Typography>
+                  <Typography>Â« {t.content} Â»</Typography>
                 </CardContent>
               </Card>
             </Grid>
@@ -42,3 +42,4 @@ export default function Testimonials() {
     </Section>
   );
 }
+

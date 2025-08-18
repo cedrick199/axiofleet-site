@@ -1,4 +1,4 @@
-import React from 'react';
+﻿import React from 'react';
 import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
 import CardActions from '@mui/material/CardActions';
@@ -45,7 +45,7 @@ export default function FormationCard({ formation = {}, onDevis }) {
     window.location.href = '/contact';
   };
 
-  // Clé de liste stable et unique même si id absent ou objectifs dupliqués
+  // ClÃ© de liste stable et unique mÃªme si id absent ou objectifs dupliquÃ©s
   const keyForObj = (obj, i) => `${id ?? 'formation'}-${i}-${String(obj).slice(0, 24)}`;
 
   return (
@@ -95,3 +95,4 @@ FormationCard.propTypes = {
   }),
   onDevis: PropTypes.func
 };
+

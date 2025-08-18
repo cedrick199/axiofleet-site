@@ -1,4 +1,4 @@
-import React from 'react';
+﻿import React from 'react';
 import Box from '@mui/material/Box';
 import Container from '@mui/material/Container';
 import Stack from '@mui/material/Stack';
@@ -31,7 +31,7 @@ export default function Hero() {
         bgcolor: 'black',
       }}
     >
-      {/* Fond plein écran */}
+      {/* Fond plein Ã©cran */}
       <Box
         aria-hidden
         sx={{
@@ -44,7 +44,7 @@ export default function Hero() {
         }}
       />
 
-      {/* Overlay léger pour lisibilité */}
+      {/* Overlay lÃ©ger pour lisibilitÃ© */}
       <Box
         aria-hidden
         sx={{
@@ -97,7 +97,7 @@ export default function Hero() {
             lineHeight: { xs: 1.35, md: 1.35 },
           }}
         >
-          L’expertise transport qui accélère vos performances.
+          Lâ€™expertise transport qui accÃ©lÃ¨re vos performances.
         </Typography>
 
         {/* CTA principal -> /presentation */}
@@ -108,10 +108,11 @@ export default function Hero() {
             onClick={onPrimary}
             sx={{ px: 4, py: 1.25, borderRadius: '9999px', fontWeight: 700 }}
           >
-            Découvrir nos solutions
+            DÃ©couvrir nos solutions
           </Button>
         </Stack>
       </Container>
     </Box>
   );
 }
+

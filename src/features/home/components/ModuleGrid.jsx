@@ -1,4 +1,4 @@
-import React from 'react';
+﻿import React from 'react';
 import { Card, CardContent, CardActions, Button, Grid, Typography, Chip, Stack } from '@mui/material';
 import Section from '@/components/common/Section.jsx';
 import SectionTitle from '@/components/common/SectionTitle.jsx';
@@ -7,27 +7,27 @@ const tiles = [
   {
     id: 'mod-formations',
     title: 'Formations TRM',
-    desc: 'Programmes opérationnels : planification, conformité RSE, RH conducteurs, efficacité exploitation.',
+    desc: 'Programmes opÃ©rationnels : planification, conformitÃ© RSE, RH conducteurs, efficacitÃ© exploitation.',
     href: '/formations',
     cta: 'Voir les formations',
     plausible: 'CTA_Formation',
-    badge: 'Présentiel / intra'
+    badge: 'PrÃ©sentiel / intra'
   },
   {
     id: 'mod-conseil',
     title: 'Conseil & Audit',
     desc: 'Audit flash 360, cartographie des flux, quick wins et feuille de route 90 jours, KPI & REX.',
     href: '/conseil',
-    cta: 'Découvrir le conseil',
+    cta: 'DÃ©couvrir le conseil',
     plausible: 'CTA_Devis',
     badge: 'Audit 100% terrain'
   },
   {
     id: 'mod-tms',
     title: 'TMS Axiofleet',
-    desc: 'Planning & Exploitation, Parc & Atelier, RH Conducteurs, Rentabilité & Facturation.',
+    desc: 'Planning & Exploitation, Parc & Atelier, RH Conducteurs, RentabilitÃ© & Facturation.',
     href: '/tms',
-    cta: 'Demander une démo',
+    cta: 'Demander une dÃ©mo',
     plausible: 'CTA_Demo_TMS',
     badge: 'Teaser'
   }
@@ -65,3 +65,4 @@ export default function ModuleGrid() {
     </Section>
   );
 }
+
