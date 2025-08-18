@@ -9,8 +9,8 @@ export default function Blog(){
   description="Conseils TRM, retours terrain et nouveautés Axiofleet."
   canonical="https://www.axiofleet.com/blog"
 />
-  <Section><SectionTitle title="ActualitÃ©s & Blog"/>Deux articles Ã  publier pour le SEO initial.</Section>)
-}
+  <Section><SectionTitle title="ActualitÃ©s & Blog"/>Deux articles Ã  publier pour le SEO initial.</Section></>);}
+
 
 
 

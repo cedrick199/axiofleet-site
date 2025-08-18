@@ -9,7 +9,8 @@ export default function Contact(){ return (<>
   description="Parler de votre besoin : formations, consulting, TMS. Réponse rapide."
   canonical="https://www.axiofleet.com/contact"
 />
-  <Section><SectionTitle title="Contact" subtitle="RÃ©ponse sous 24â€“48h"/><ContactForm/></Section>) }
+  <Section><SectionTitle title="Contact" subtitle="RÃ©ponse sous 24â€“48h"/><ContactForm/></Section></>);}
+
 
 
 

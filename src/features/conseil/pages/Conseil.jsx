@@ -9,7 +9,7 @@ export default function Conseil(){
   description="Audit des processus d’exploitation, lecture de la rentabilité et pilotage terrain adaptés à votre organisation."
   canonical="https://www.axiofleet.com/conseil"
 />
-  <Section><SectionTitle title="Conseil TRM" subtitle="Diagnostics, audit conformitÃ©, mise en place planning, coaching"/>Offres packagÃ©es.</Section>)
-}
+  <Section><SectionTitle title="Conseil TRM" subtitle="Diagnostics, audit conformitÃ©, mise en place planning, coaching"/>Offres packagÃ©es.</Section></>);}
+
 
 
