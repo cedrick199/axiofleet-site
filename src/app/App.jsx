@@ -7,7 +7,7 @@ import Header from '../layout/Header.jsx';
 import Footer from '../layout/Footer.jsx';
 
 // PAGES
-import Home from '../features/home/Home.jsx'; // <-- chemin corrigé (pas /pages/)
+import Home from '../features/home/Home.jsx';
 import Formations from '../features/formations/pages/Formations.jsx';
 import Conseil from '../features/conseil/pages/Conseil.jsx';
 import TMS from '../features/tms/pages/TMS.jsx';
@@ -23,13 +23,19 @@ export default function App() {
       <BrowserRouter>
         <Header />
         <Routes>
+          {/* Accueil */}
           <Route path="/" element={<Home />} />
+          <Route path="/accueil" element={<Home />} />
+
+          {/* Pages principales */}
           <Route path="/formations" element={<Formations />} />
           <Route path="/conseil" element={<Conseil />} />
           <Route path="/tms" element={<TMS />} />
           <Route path="/blog" element={<Blog />} />
           <Route path="/contact" element={<Contact />} />
           <Route path="/presentation" element={<Presentation />} />
+
+          {/* 404 */}
           <Route path="*" element={<NotFound />} />
         </Routes>
         <Footer />
@@ -37,3 +43,4 @@ export default function App() {
     </ThemeProvider>
   );
 }
+
