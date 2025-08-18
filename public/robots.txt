@@ -1,3 +1,4 @@
 ﻿User-agent: *
-Allow: /
-Sitemap: https://axiofleet.com/sitemap.xml
+Disallow:
+
+Sitemap: https://www.axiofleet.com/sitemap.xml

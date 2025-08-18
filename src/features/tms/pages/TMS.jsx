@@ -14,6 +14,7 @@ import CardActions from '@mui/material/CardActions';
 
 import Section from '@/components/common/Section.jsx';
 import SectionTitle from '@/components/common/SectionTitle.jsx';
+import Seo from '../../../lib/seo/Seo.jsx';
 
 const MODULES = [
   {
@@ -80,6 +81,12 @@ export default function TMS() {
   };
 
   return (
+  <Seo
+  title="TMS Axiofleet — Simple, métier, rentable"
+  description="Planifier l’exploitation, suivre le parc et les RH conducteurs, facturer et piloter la marge dans un seul outil."
+  canonical="https://www.axiofleet.com/tms"
+/>
+  
     <Box>
       {/* HERO */}
       <Section id="tms-hero" sx={{ pt: { xs: 8, md: 12 }, pb: 6 }}>
@@ -145,3 +152,4 @@ export default function TMS() {
     </Box>
   );
 }
+

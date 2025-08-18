@@ -1,7 +1,8 @@
-// src/features/presentation/pages/Presentation.jsx
+﻿// src/features/presentation/pages/Presentation.jsx
 import React, { useEffect } from "react";
 import { Box, Button, Stack, Typography } from "@mui/material";
 import { useNavigate } from "react-router-dom";
+import Seo from '../../../lib/seo/Seo.jsx';
 
 /** SEO minimal */
 function Seo({ title, description, canonical }) {
@@ -30,9 +31,9 @@ function Seo({ title, description, canonical }) {
 }
 
 /**
- * Colonne : Cible (eyebrow) → Accroche (title) → Paragraphes → Puces → CTA (collés en bas)
+ * Colonne : Cible (eyebrow) â†’ Accroche (title) â†’ Paragraphes â†’ Puces â†’ CTA (collÃ©s en bas)
  * Alignement inter-colonnes :
- *  - headBlock = eyebrow + title + séparateur (+ spacer) avec minHeight commun (md+)
+ *  - headBlock = eyebrow + title + sÃ©parateur (+ spacer) avec minHeight commun (md+)
  *  - introBlock = paragraphes avec minHeight commun (md+)
  */
 function PhotoColumn({
@@ -51,13 +52,13 @@ function PhotoColumn({
     overlay === "always" ? { xs: "block", md: "block" } : { xs: "block", md: "none" };
   const CONTENT_MAX = 720;
 
-  // Hauteurs minimales communes (md+). Ajustées pour réduire le vide sous le titre.
+  // Hauteurs minimales communes (md+). AjustÃ©es pour rÃ©duire le vide sous le titre.
   const HEAD_MIN_H  = { xs: "auto", md: 240 }; // eyebrow + title + trait
   const INTRO_MIN_H = { xs: "auto", md: 220 }; // paragraphes avant les puces
 
   // Espaces
-  const SPACE_AFTER_SEPARATOR = { xs: 8, md: 12 };   // ⬅️ réduit sous le trait
-  const GAP_BEFORE_CTA_MIN    = { xs: 12, md: 22 };  // ⬅️ vide au-dessus des CTA
+  const SPACE_AFTER_SEPARATOR = { xs: 8, md: 12 };   // â¬…ï¸ rÃ©duit sous le trait
+  const GAP_BEFORE_CTA_MIN    = { xs: 12, md: 22 };  // â¬…ï¸ vide au-dessus des CTA
 
   return (
     <Box
@@ -91,7 +92,7 @@ function PhotoColumn({
 
       {/* Contenu */}
       <Stack sx={{ position: "relative", zIndex: 1, maxWidth: { md: CONTENT_MAX } }}>
-        {/* ====== HEAD BLOCK (eyebrow + title + trait) — hauteur commune ====== */}
+        {/* ====== HEAD BLOCK (eyebrow + title + trait) â€” hauteur commune ====== */}
         <Box sx={{ minHeight: HEAD_MIN_H }}>
           {/* EYEBROW = cible */}
           {eyebrow && (
@@ -123,7 +124,7 @@ function PhotoColumn({
             {title}
           </Typography>
 
-          {/* Séparateur */}
+          {/* SÃ©parateur */}
           <Box
             aria-hidden
             sx={{
@@ -134,11 +135,11 @@ function PhotoColumn({
               borderRadius: 2,
             }}
           />
-          {/* Spacer sous le trait — réduit */}
+          {/* Spacer sous le trait â€” rÃ©duit */}
           <Box aria-hidden sx={{ height: SPACE_AFTER_SEPARATOR }} />
         </Box>
 
-        {/* ====== INTRO BLOCK (paragraphes) — hauteur commune ====== */}
+        {/* ====== INTRO BLOCK (paragraphes) â€” hauteur commune ====== */}
         {paragraphs.length > 0 && (
           <Box sx={{ minHeight: INTRO_MIN_H }}>
             <Stack spacing={{ xs: 0.85, md: 1 }}>
@@ -193,10 +194,10 @@ function PhotoColumn({
         )}
       </Stack>
 
-      {/* Espace avant CTA (crée le vide souhaité) */}
+      {/* Espace avant CTA (crÃ©e le vide souhaitÃ©) */}
       <Box aria-hidden sx={{ height: GAP_BEFORE_CTA_MIN, flexShrink: 0 }} />
 
-      {/* CTA collés en bas */}
+      {/* CTA collÃ©s en bas */}
       {cta.length > 0 && (
         <Stack
           direction={{ xs: "column", sm: "row" }}
@@ -243,8 +244,8 @@ export default function Presentation() {
       }}
     >
       <Seo
-        title="Axiofleet — Formations & Conseil transport (TRM) • Solutions informatiques"
-        description="Axiofleet présente ses offres : formations TRM, conseil en organisation transport et solutions informatiques (TMS). Conformité, efficacité et résultats mesurables."
+        title="Axiofleet â€” Formations & Conseil transport (TRM) â€¢ Solutions informatiques"
+        description="Axiofleet prÃ©sente ses offres : formations TRM, conseil en organisation transport et solutions informatiques (TMS). ConformitÃ©, efficacitÃ© et rÃ©sultats mesurables."
         canonical="https://www.axiofleet.com/presentation"
       />
 
@@ -252,15 +253,15 @@ export default function Presentation() {
       <PhotoColumn
         id="col-formations"
         eyebrow="Centres de formation"
-        title="Intervenant extérieur pour assurer vos sessions transport & logistique."
+        title="Intervenant extÃ©rieur pour assurer vos sessions transport & logistique."
         paragraphs={[
           {
             id: "form-p1",
             content: (
               <>
-                Animation de modules <strong>théoriques</strong> et <strong>pratiques</strong>{" "}
-                alignés sur vos référentiels. Pédagogie <strong>engageante</strong>, supports clairs,
-                retours d’ <strong>expérience terrain</strong>.
+                Animation de modules <strong>thÃ©oriques</strong> et <strong>pratiques</strong>{" "}
+                alignÃ©s sur vos rÃ©fÃ©rentiels. PÃ©dagogie <strong>engageante</strong>, supports clairs,
+                retours dâ€™ <strong>expÃ©rience terrain</strong>.
               </>
             ),
           },
@@ -268,17 +269,17 @@ export default function Presentation() {
             id: "form-p2",
             content: (
               <>
-                Objectif : <strong>continuité des sessions</strong>, respect des{" "}
-                <strong>délais de planning</strong> et <strong>qualité d’animation</strong> qui
+                Objectif : <strong>continuitÃ© des sessions</strong>, respect des{" "}
+                <strong>dÃ©lais de planning</strong> et <strong>qualitÃ© dâ€™animation</strong> qui
                 valorise votre organisme.
               </>
             ),
           },
         ]}
         bulletPoints={[
-          "Théorie post-bac : exploitation, organisation TRM, réglementation sociale",
-          "Pratique terrain : conduite PL & SPL, sécurité, FIMO/FCO",
-          "Examens : jurys, évaluations, suivi des compétences",
+          "ThÃ©orie post-bac : exploitation, organisation TRM, rÃ©glementation sociale",
+          "Pratique terrain : conduite PL & SPL, sÃ©curitÃ©, FIMO/FCO",
+          "Examens : jurys, Ã©valuations, suivi des compÃ©tences",
         ]}
         bgImage="/presentation/formations-classroom-clean.webp?v=20250822-2"
         bgPosMobile="center top"
@@ -286,7 +287,7 @@ export default function Presentation() {
         overlay="always"
         cta={[
           <Button key="f_primary" variant="contained" onClick={() => go("/contact", "CTA_Contact_Formation_Primary")}>
-            Renforcer mon équipe pédagogique
+            Renforcer mon Ã©quipe pÃ©dagogique
           </Button>,
           <Button key="f_secondary" variant="outlined" color="secondary" onClick={() => go("/formations", "CTA_Formation_Modules")}>
             Voir les modules de formation
@@ -294,19 +295,19 @@ export default function Presentation() {
         ]}
       />
 
-      {/* CONSEIL — contenu validé */}
+      {/* CONSEIL â€” contenu validÃ© */}
       <PhotoColumn
         id="col-conseil"
         eyebrow="Consulting TPE-PME"
-        title="Analyse des processus et pilotage terrain au service de votre rentabilité."
+        title="Analyse des processus et pilotage terrain au service de votre rentabilitÃ©."
         paragraphs={[
           {
             id: "cons-p1",
             content: (
               <>
-                Audit des{" "}<strong>processus d’exploitation</strong> de bout en bout, identification des{" "}
+                Audit des{" "}<strong>processus dâ€™exploitation</strong> de bout en bout, identification des{" "}
                 <strong>frictions</strong> et des <strong>doublons</strong>, lecture objective de la{" "}
-                <strong>rentabilité</strong>.
+                <strong>rentabilitÃ©</strong>.
               </>
             ),
           },
@@ -314,21 +315,21 @@ export default function Presentation() {
             id: "cons-p2",
             content: (
               <>
-                L’accompagnement s’appuie sur les <strong>méthodes</strong>, les{" "}
-                <strong>outils</strong> et le <strong>rythme</strong> de travail de l’entreprise —
-                sans modèle plaqué — afin de clarifier les <strong>responsabilités</strong> et
-                d’installer un <strong>pilotage terrain</strong> pragmatique. Restitution courte :
-                vision d’ensemble partagée et <strong>plan d’actions 30/60/90 jours</strong> ; des{" "}
-                <strong>outils informatiques adaptés</strong> peuvent accompagner le déploiement si
-                nécessaire, sans complexifier.
+                Lâ€™accompagnement sâ€™appuie sur les <strong>mÃ©thodes</strong>, les{" "}
+                <strong>outils</strong> et le <strong>rythme</strong> de travail de lâ€™entreprise â€”
+                sans modÃ¨le plaquÃ© â€” afin de clarifier les <strong>responsabilitÃ©s</strong> et
+                dâ€™installer un <strong>pilotage terrain</strong> pragmatique. Restitution courte :
+                vision dâ€™ensemble partagÃ©e et <strong>plan dâ€™actions 30/60/90 jours</strong> ; des{" "}
+                <strong>outils informatiques adaptÃ©s</strong> peuvent accompagner le dÃ©ploiement si
+                nÃ©cessaire, sans complexifier.
               </>
             ),
           },
         ]}
         bulletPoints={[
-          "Analyse des processus & responsabilités (flux lisibles, sans doublons)",
-          "Lecture économique pragmatique : coût de revient, prix, cash",
-          "Plan d’actions priorisé 30/60/90 jours, exécution accompagnée",
+          "Analyse des processus & responsabilitÃ©s (flux lisibles, sans doublons)",
+          "Lecture Ã©conomique pragmatique : coÃ»t de revient, prix, cash",
+          "Plan dâ€™actions priorisÃ© 30/60/90 jours, exÃ©cution accompagnÃ©e",
         ]}
         bgImage="/presentation/conseil-color-clean.webp?v=20250822-2"
         bgPosMobile="center 25%"
@@ -336,7 +337,7 @@ export default function Presentation() {
         overlay="always"
         cta={[
           <Button key="c1" variant="contained" onClick={() => go("/conseil", "CTA_Conseil")}>
-            Découvrir le conseil
+            DÃ©couvrir le conseil
           </Button>,
           <Button key="c2" variant="outlined" color="secondary" onClick={() => go("/contact", "CTA_Devis")}>
             Demander un devis
@@ -348,14 +349,14 @@ export default function Presentation() {
       <PhotoColumn
         id="col-tms"
         eyebrow="Exploitants & directions TRM"
-        title="Un TMS simple pour planifier, suivre et rentabiliser vos opérations."
+        title="Un TMS simple pour planifier, suivre et rentabiliser vos opÃ©rations."
         paragraphs={[
           {
             id: "tms-p1",
             content: (
               <>
-                Pilotage de l’exploitation, du parc et des RH conducteurs via une interface claire, à la{" "}
-                <strong>logique métier</strong>.
+                Pilotage de lâ€™exploitation, du parc et des RH conducteurs via une interface claire, Ã  la{" "}
+                <strong>logique mÃ©tier</strong>.
               </>
             ),
           },
@@ -363,8 +364,8 @@ export default function Presentation() {
             id: "tms-p2",
             content: (
               <>
-                Objectif : <strong>gagner du temps</strong>, <strong>fiabiliser</strong> et disposer d’une{" "}
-                <strong>vision marge</strong> sans complexité technique.
+                Objectif : <strong>gagner du temps</strong>, <strong>fiabiliser</strong> et disposer dâ€™une{" "}
+                <strong>vision marge</strong> sans complexitÃ© technique.
               </>
             ),
           },
@@ -373,14 +374,14 @@ export default function Presentation() {
           "Planning & exploitation (drag & drop, RSE)",
           "Parc & atelier (alertes, interventions)",
           "RH conducteurs (contrats, absences)",
-          "Rentabilité & facturation intégrée",
+          "RentabilitÃ© & facturation intÃ©grÃ©e",
         ]}
         bgImage="/presentation/tms-color-clean.webp?v=20250822-2"
         bgPosMobile="center"
         overlay="always"
         cta={[
           <Button key="t1" variant="contained" onClick={() => go("/tms", "CTA_Demo_TMS")}>
-            Découvrir le TMS
+            DÃ©couvrir le TMS
           </Button>,
           <Button key="t2" variant="outlined" href="/pdf/tms-brochure.pdf" target="_blank" rel="noopener noreferrer">
             Brochure PDF

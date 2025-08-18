@@ -4,9 +4,16 @@ import SectionTitle from "../../../components/common/SectionTitle.jsx";
 import { Grid } from "@mui/material";
 import FormationCard from "../components/FormationCard.jsx";
 import { formations } from "../data/formations.catalog.js";
+import Seo from '../../../lib/seo/Seo.jsx';
 
 export default function Formations() {
   return (
+  <Seo
+  title="Formations TRM — Axiofleet"
+  description="Modules théoriques & pratiques avec intervenant extérieur. Conformité et efficacité pédagogique."
+  canonical="https://www.axiofleet.com/formations"
+/>
+  
     <Section>
       <SectionTitle title="Formations" subtitle="Exploitation, conformité, efficacité opérationnelle" />
       <Grid container spacing={2}>
@@ -19,3 +26,4 @@ export default function Formations() {
     </Section>
   );
 }
+
