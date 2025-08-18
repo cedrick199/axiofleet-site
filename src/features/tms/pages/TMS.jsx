@@ -80,7 +80,7 @@ export default function TMS() {
     window?.plausible?.('CTA_Brochure_TMS', { props: { location: 'TMS_Hero' } });
   };
 
-  return (
+  return (<>
   <Seo
   title="TMS Axiofleet — Simple, métier, rentable"
   description="Planifier l’exploitation, suivre le parc et les RH conducteurs, facturer et piloter la marge dans un seul outil."
@@ -150,6 +150,7 @@ export default function TMS() {
         </Container>
       </Section>
     </Box>
-  );
+  </>);
 }
+
 

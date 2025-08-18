@@ -7,7 +7,7 @@ import { formations } from "../data/formations.catalog.js";
 import Seo from '../../../lib/seo/Seo.jsx';
 
 export default function Formations() {
-  return (
+  return (<>
   <Seo
   title="Formations TRM — Axiofleet"
   description="Modules théoriques & pratiques avec intervenant extérieur. Conformité et efficacité pédagogique."
@@ -24,6 +24,7 @@ export default function Formations() {
         ))}
       </Grid>
     </Section>
-  );
+  </>);
 }
+
 

@@ -60,7 +60,7 @@ function PhotoColumn({
   const SPACE_AFTER_SEPARATOR = { xs: 8, md: 12 };   // â¬…ï¸ rÃ©duit sous le trait
   const GAP_BEFORE_CTA_MIN    = { xs: 12, md: 22 };  // â¬…ï¸ vide au-dessus des CTA
 
-  return (
+  return (<>
     <Box
       component="section"
       aria-labelledby={id}
@@ -392,5 +392,6 @@ export default function Presentation() {
         ]}
       />
     </Box>
-  );
+  </>);
 }
+

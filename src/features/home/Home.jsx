@@ -10,7 +10,7 @@ export default function Home() {
   React.useEffect(() => {
     const prev = document.body.style.overflow;
     document.body.style.overflow = 'hidden';
-    return (
+    return (<>
   <Seo
   title="Axiofleet — Formations, Conseil TRM & TMS"
   description="Formations transport/logistique, consulting TPE-PME TRM (TP/Bennes) et TMS simple pour piloter exploitation, parc et RH."
@@ -37,6 +37,7 @@ export default function Home() {
     >
       <Hero />
     </Box>
-  );
+  </>);
 }
+
 
