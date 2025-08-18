@@ -3,7 +3,7 @@ import Section from "../../../components/common/Section.jsx"
 import SectionTitle from "../../../components/common/SectionTitle.jsx"
 import Seo from '../../../lib/seo/Seo.jsx';
 export default function Conseil(){
-  return (
+  return (<>
   <Seo
   title="Consulting TPE-PME TRM — Axiofleet"
   description="Audit des processus d’exploitation, lecture de la rentabilité et pilotage terrain adaptés à votre organisation."
@@ -11,4 +11,5 @@ export default function Conseil(){
 />
   <Section><SectionTitle title="Conseil TRM" subtitle="Diagnostics, audit conformitÃ©, mise en place planning, coaching"/>Offres packagÃ©es.</Section>)
 }
+
 
