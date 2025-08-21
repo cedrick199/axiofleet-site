@@ -299,11 +299,11 @@ function CatalogueProgramsModal({ title, open, onClose, programs, catalog, kind 
                     {/* Header carte */}
                     <Stack direction="row" alignItems="center" spacing={1}>
                       <Checkbox
-                        checked={checked}
-                        onChange={() => toggle(m)}
-                        inputProps={{ 'aria-label': `${checked ? 'Désélectionner' : 'Sélectionner'} ${m.title}` }}
-                        sx={{ p: 0.5 }}
-                      />
+                      checked={checked}
+                       onChange={() => toggle(m)}
+                        slotProps={{ input: { 'aria-label': `${checked ? 'Désélectionner' : 'Sélectionner'} ${m.title}` } }}
+                         sx={{ p: 0.5 }}
+                       />
                       <Typography variant="body1" sx={{ fontWeight: 700, flexGrow: 1 }}>
                         {m.ref ? `${m.ref} — ` : ''}{m.title}
                       </Typography>

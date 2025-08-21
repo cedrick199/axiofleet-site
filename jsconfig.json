@@ -10,8 +10,7 @@
       "@assets/*": ["src/assets/*"]
     }
   },
-  "typeAcquisition": { "enable": false },
+  "typeAcquisition": { "enable": true },
   "include": ["src"],
   "exclude": ["node_modules", "dist"]
 }
-
