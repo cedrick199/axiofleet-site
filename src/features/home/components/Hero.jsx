@@ -1,4 +1,4 @@
-﻿import React from 'react';
+import React from 'react';
 import Box from '@mui/material/Box';
 import Container from '@mui/material/Container';
 import Stack from '@mui/material/Stack';
@@ -31,7 +31,7 @@ export default function Hero() {
         bgcolor: 'black',
       }}
     >
-      {/* Fond plein Ã©cran */}
+      {/* Fond plein écran */}
       <Box
         aria-hidden
         sx={{
@@ -44,7 +44,7 @@ export default function Hero() {
         }}
       />
 
-      {/* Overlay lÃ©ger pour lisibilitÃ© */}
+      {/* Overlay léger pour lisibilité */}
       <Box
         aria-hidden
         sx={{
@@ -58,7 +58,7 @@ export default function Hero() {
       />
 
       <Container maxWidth="md" sx={{ position: 'relative', textAlign: 'center' }}>
-        {/* LOGO uniquement (pas de titre redondant) */}
+        {/* LOGO */}
         <Box
           component="img"
           src={LOGO_WEBP}
@@ -73,7 +73,7 @@ export default function Hero() {
           onError={(e) => { e.currentTarget.onerror = null; e.currentTarget.src = LOGO_PNG; }}
         />
 
-        {/* H1 SEO unique */}
+        {/* H1 SEO unique — 3 lignes */}
         <Typography
           component="h1"
           sx={{
@@ -84,7 +84,9 @@ export default function Hero() {
             lineHeight: { xs: 1.15, md: 1.2 },
           }}
         >
-          Formations & Conseil transport (TRM) Solutions informatiques
+          <Box component="span" sx={{ display: 'block' }}>Formations</Box>
+          <Box component="span" sx={{ display: 'block' }}>Consulting</Box>
+          <Box component="span" sx={{ display: 'block' }}>Solutions informatiques</Box>
         </Typography>
 
         {/* Tagline */}
@@ -97,7 +99,7 @@ export default function Hero() {
             lineHeight: { xs: 1.35, md: 1.35 },
           }}
         >
-          Lâ€™expertise transport qui accÃ©lÃ¨re vos performances.
+          L&apos;expertise transport qui accélère vos performances.
         </Typography>
 
         {/* CTA principal -> /presentation */}
@@ -108,11 +110,10 @@ export default function Hero() {
             onClick={onPrimary}
             sx={{ px: 4, py: 1.25, borderRadius: '9999px', fontWeight: 700 }}
           >
-            DÃ©couvrir nos solutions
+            Découvrir nos solutions
           </Button>
         </Stack>
       </Container>
     </Box>
   );
 }
-

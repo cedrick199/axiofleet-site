@@ -1,4 +1,4 @@
-﻿// src/features/presentation/pages/Presentation.jsx
+// src/features/presentation/pages/Presentation.jsx
 import React, { useEffect } from "react";
 import { Box, Button, Stack, Typography } from "@mui/material";
 import { useNavigate } from "react-router-dom";
@@ -20,6 +20,7 @@ function PhotoColumn({
   const overlayDisplay =
     overlay === "always" ? { xs: "block", md: "block" } : { xs: "block", md: "none" };
   const CONTENT_MAX = 720;
+  const HEADER_MIN_MD = 190; // ✅ même “capot” sur md+ pour aligner le début des paragraphes
 
   return (
     <Box
@@ -30,13 +31,15 @@ function PhotoColumn({
         display: "flex",
         flexDirection: "column",
         justifyContent: "flex-start",
-        height: "100%",
         backgroundImage: `url('${bgImage}')`,
         backgroundSize: "cover",
         backgroundRepeat: "no-repeat",
         backgroundPosition: { xs: bgPosMobile, md: "center" },
         borderRight: addRightDivider ? { md: "1px solid rgba(255,255,255,0.12)" } : "none",
-        p: { xs: "16px 14px 18px 14px", md: 5 },
+        px: { xs: 2, md: 5 },
+        py: { xs: 3, md: 6 },
+        boxSizing: "border-box",
+        minHeight: "100%",
       }}
     >
       {/* Overlay sombre */}
@@ -56,48 +59,57 @@ function PhotoColumn({
         sx={{ position: "relative", zIndex: 1, maxWidth: { md: CONTENT_MAX } }}
         spacing={{ xs: 1, md: 1.15 }}
       >
-        {/* EYEBROW = cible */}
-        {eyebrow && (
-          <Typography
-            component="p"
-            sx={{
-              fontWeight: 800,
-              fontSize: { xs: "clamp(15px, 3.8vw, 18px)", md: 20 },
-              letterSpacing: 0.2,
-              color: "rgba(255,255,255,0.96)",
-            }}
-          >
-            {eyebrow}
-          </Typography>
-        )}
-
-        {/* TITLE = accroche */}
-        <Typography
-          id={id}
-          component="h2"
+        {/* ✅ EN-TÊTE À HAUTEUR FIXE SUR DESKTOP : eyebrow + titre + séparateur */}
+        <Box
           sx={{
-            fontWeight: 800,
-            lineHeight: 1.08,
-            fontSize: { xs: "clamp(19px, 4.6vw, 26px)", md: "clamp(26px, 2.2vw, 34px)" },
-            color: "#fff",
-            textShadow: "0 2px 6px rgba(0,0,0,0.7)",
+            display: "grid",
+            gridTemplateRows: "auto auto auto",
+            rowGap: { xs: 1, md: 1.25 },
+            minHeight: { xs: "auto", md: HEADER_MIN_MD },
+            alignContent: "start",
           }}
         >
-          {title}
-        </Typography>
+          {eyebrow && (
+            <Typography
+              component="p"
+              sx={{
+                fontWeight: 800,
+                fontSize: { xs: "clamp(15px, 3.8vw, 18px)", md: 20 },
+                letterSpacing: "0.02em",
+                color: "rgba(255,255,255,0.96)",
+                m: 0,
+              }}
+            >
+              {eyebrow}
+            </Typography>
+          )}
 
-        {/* Séparateur + espace visuel */}
-        <Box
-          aria-hidden
-          sx={{
-            width: { xs: 56, md: 72 },
-            height: 2,
-            background:
-              "linear-gradient(90deg, rgba(255,255,255,0.65) 0%, rgba(255,255,255,0.08) 100%)",
-            borderRadius: 2,
-          }}
-        />
-        <Box aria-hidden sx={{ height: { xs: 20, md: 28 } }} />
+          <Typography
+            id={id}
+            component="h2"
+            sx={{
+              fontWeight: 800,
+              lineHeight: 1.08,
+              fontSize: { xs: "clamp(19px, 4.6vw, 26px)", md: "clamp(26px, 2.2vw, 34px)" },
+              color: "#fff",
+              textShadow: "0 2px 6px rgba(0,0,0,0.7)",
+              m: 0,
+            }}
+          >
+            {title}
+          </Typography>
+
+          <Box
+            aria-hidden
+            sx={{
+              width: { xs: 56, md: 72 },
+              height: 2,
+              background:
+                "linear-gradient(90deg, rgba(255,255,255,0.65) 0%, rgba(255,255,255,0.08) 100%)",
+              borderRadius: 2,
+            }}
+          />
+        </Box>
 
         {/* Paragraphes */}
         {paragraphs.length > 0 && (
@@ -109,6 +121,7 @@ function PhotoColumn({
                   color: "#f1f3f5",
                   textShadow: "0 2px 4px rgba(0,0,0,0.6)",
                   fontSize: { xs: "clamp(13px, 3.2vw, 16px)", md: 16 },
+                  m: 0,
                 }}
               >
                 {content}
@@ -142,6 +155,7 @@ function PhotoColumn({
                     color: "#fff",
                     textShadow: "0 1px 2px rgba(0,0,0,0.65)",
                     fontSize: { xs: 13, md: 14 },
+                    m: 0,
                   }}
                 >
                   {t}
@@ -208,11 +222,11 @@ export default function Presentation() {
       <Box
         sx={{
           width: "100vw",
-          height: "calc(100dvh - var(--header-h, 64px))",
-          overflow: "hidden",
+          minHeight: "calc(100vh - var(--header-h, 64px))",
           display: "grid",
           gridTemplateColumns: { xs: "1fr", md: "repeat(3, 1fr)" },
           alignItems: "stretch",
+          overflow: "hidden",
         }}
       >
         {/* FORMATIONS */}
@@ -371,7 +385,12 @@ export default function Presentation() {
             >
               Brochure PDF
             </Button>,
-            <Button key="t3" variant="outlined" color="secondary" onClick={() => go("/contact", "CTA_Devis")}>
+            <Button
+              key="t3"
+              variant="outlined"
+              color="secondary"
+              onClick={() => go("/contact", "CTA_Devis")}
+            >
               Demander un devis
             </Button>,
           ]}

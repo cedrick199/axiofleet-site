@@ -1,4 +1,4 @@
-﻿// src/features/home/Home.jsx
+// src/features/home/Home.jsx
 import React from "react";
 import Box from "@mui/material/Box";
 import Hero from "./components/Hero.jsx";
@@ -14,7 +14,7 @@ export default function Home() {
   return (
     <>
       <Seo
-        title="Axiofleet — Formations, Conseil TRM & TMS"
+        title="Axiofleet — Formations, Conseil & TMS"
         description="Formations transport/logistique, consulting TPE-PME TRM (TP/Bennes) et TMS simple pour piloter exploitation, parc et RH."
         canonical="https://www.axiofleet.com/"
         jsonLd={{
