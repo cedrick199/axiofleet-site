@@ -15,11 +15,13 @@
     "dayjs": "^1.11.13",
     "framer-motion": "^12.23.12",
     "lucide-react": "^0.539.0",
+    "prop-types": "^15.8.1",
     "react-router-dom": "^7.8.1"
   },
   "scripts": {
     "dev": "vite",
-    "build": "vite build",
+    "sitemap": "node scripts/generate-sitemap.mjs",
+    "build": "vite build && npm run sitemap",
     "preview": "vite preview"
   }
 }
