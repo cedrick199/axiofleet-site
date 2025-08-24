@@ -22,3 +22,5 @@ Thumbs.db
 !.env.example
 .env 
 !/.env.example
+.env.local
+.env.*.local

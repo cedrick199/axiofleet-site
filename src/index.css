@@ -1,2 +1,27 @@
-﻿html, body, #root { height: 100%; }
+﻿/* src/index.css */
+
+/* Base existante */
+html, body, #root { height: 100%; }
 body { margin: 0; }
+
+/* Évite tout scroll horizontal parasite */
+html, body { overflow-x: hidden; }
+
+/* Desktop : on verrouille le scroll de la PAGE */
+@media (min-width: 900px) {
+  html, body { overflow-y: hidden; }
+}
+
+/* Mobile/Tablet : scroll normal + inertie iOS */
+@media (max-width: 899.98px) {
+  html, body {
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+}
+
+/* (optionnel, inoffensif) valeurs par défaut des variables exposées par Header/Footer */
+:root {
+  --header-h: 0px;
+  --footer-h: 0px;
+}

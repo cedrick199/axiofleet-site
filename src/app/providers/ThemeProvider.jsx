@@ -1,6 +1,6 @@
 ﻿// src/app/providers/ThemeProvider.jsx
 import * as React from "react";
-import PropTypes from "prop-types"; // ⬅️ AJOUT
+import PropTypes from "prop-types";
 import { ThemeProvider as MuiThemeProvider, createTheme, CssBaseline } from "@mui/material";
 
 function makeTheme() {
@@ -11,8 +11,12 @@ function makeTheme() {
       MuiTextField: { defaultProps: { variant: "outlined", size: "medium" } },
       MuiOutlinedInput: {
         styleOverrides: {
-          root: { borderRadius: 12, minHeight: 56, alignItems: "center",
-                  "& .MuiOutlinedInput-notchedOutline": { borderRadius: 12 } },
+          root: {
+            borderRadius: 12,
+            minHeight: 56,
+            alignItems: "center",
+            "& .MuiOutlinedInput-notchedOutline": { borderRadius: 12 },
+          },
           input: { paddingTop: 14, paddingBottom: 14 },
         },
       },
@@ -35,13 +39,12 @@ export default function ThemeProvider({ children }) {
   }, []);
   return (
     <MuiThemeProvider theme={theme}>
-      <CssBaseline />
+      <CssBaseline enableColorScheme />
       {children}
     </MuiThemeProvider>
   );
 }
 
-// ⬇️  AJOUT
 ThemeProvider.propTypes = {
   children: PropTypes.node,
 };

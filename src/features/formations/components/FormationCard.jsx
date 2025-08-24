@@ -1,4 +1,5 @@
-﻿import React from 'react';
+﻿// src/features/formations/components/FormationCard.jsx
+import React from 'react';
 import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
 import CardActions from '@mui/material/CardActions';
@@ -45,20 +46,30 @@ export default function FormationCard({ formation = {}, onDevis }) {
     window.location.href = '/contact';
   };
 
-  // ClÃ© de liste stable et unique mÃªme si id absent ou objectifs dupliquÃ©s
+  // Clé de liste stable et unique même si id absent ou objectifs dupliqués
   const keyForObj = (obj, i) => `${id ?? 'formation'}-${i}-${String(obj).slice(0, 24)}`;
 
   return (
-    <Card variant="outlined" sx={{ borderRadius: 3, height: '100%' }}>
-      <CardContent>
-        <Stack direction="row" spacing={1} alignItems="center" mb={0.5}>
-          <Typography variant="h6" fontWeight={800}>{title}</Typography>
+    <Card
+      variant="outlined"
+      sx={{
+        borderRadius: 3,
+        height: '100%',
+        display: 'flex',
+        flexDirection: 'column'
+      }}
+    >
+      <CardContent sx={{ flex: 1, minHeight: 0 }}>
+        <Stack direction="row" spacing={1} alignItems="center" mb={0.5} flexWrap="wrap">
+          <Typography variant="h6" fontWeight={800} sx={{ mr: 0.5 }}>
+            {title}
+          </Typography>
           {level && <Chip size="small" label={level} />}
           {duration && <Chip size="small" label={duration} />}
         </Stack>
 
         {Array.isArray(objectives) && objectives.length > 0 && (
-          <ul style={{ marginTop: 8, paddingLeft: '1.2rem' }}>
+          <ul style={{ marginTop: 8, paddingLeft: '1.2rem', marginBottom: 0 }}>
             {objectives.map((obj, i) => (
               <li key={keyForObj(obj, i)}>
                 <Typography variant="body2">{String(obj)}</Typography>
@@ -68,13 +79,29 @@ export default function FormationCard({ formation = {}, onDevis }) {
         )}
       </CardContent>
 
-      <CardActions sx={{ px: 2, pb: 2 }}>
+      <CardActions
+        sx={{
+          px: 2,
+          pb: 2,
+          pt: 0,
+          gap: 1,
+          flexWrap: { xs: 'wrap', sm: 'nowrap' }
+        }}
+      >
         {pdf && (
-          <Button variant="text" onClick={openPdf}>
+          <Button
+            variant="text"
+            onClick={openPdf}
+            sx={{ flexGrow: { xs: 1, sm: 0 } }}
+          >
             Programme (PDF)
           </Button>
         )}
-        <Button variant="contained" onClick={askDevis}>
+        <Button
+          variant="contained"
+          onClick={askDevis}
+          sx={{ flexGrow: { xs: 1, sm: 0 } }}
+        >
           Demander un devis
         </Button>
       </CardActions>

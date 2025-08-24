@@ -12,7 +12,7 @@ export default function Header() {
   // Expose la hauteur réelle du header dans une variable CSS
   useEffect(() => {
     const setHeaderVar = () => {
-      const h = barRef.current?.offsetHeight ?? 64; // 64 desktop, 56 mobile par défaut MUI
+      const h = barRef.current?.offsetHeight ?? 64; // ~64 desktop, ~56 mobile MUI
       document.documentElement.style.setProperty('--header-h', `${h}px`);
     };
     setHeaderVar();

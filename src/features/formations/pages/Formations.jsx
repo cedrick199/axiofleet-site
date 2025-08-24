@@ -446,6 +446,7 @@ CatalogueProgramsModal.propTypes = {
 export default function Formations() {
   const go = useGo();
   const H = useAvailableHeight();
+  const mdUp = useMediaQuery('(min-width:900px)'); // desktop vs mobile
 
   const [openEns, setOpenEns] = React.useState(false);
   const [openCond, setOpenCond] = React.useState(false);
@@ -515,16 +516,18 @@ export default function Formations() {
       </Typography>
 
       <main>
-        {/* PLEIN ÉCRAN : 2 COLONNES sans scroll */}
+        {/* PLEIN ÉCRAN : 2 COLONNES — desktop non scrollable / mobile scrollable */}
         <Box
           component="section"
           aria-labelledby="formations-aria"
           sx={{
             position: 'relative',
-            height: `${H}px`,
-            overflow: 'clip',
+            height: mdUp ? `${H}px` : 'auto',                // desktop fixe, mobile auto
+            minHeight: mdUp ? undefined : `${H}px`,          // garantit un minimum sur mobile
+            overflowY: mdUp ? 'clip' : 'auto',               // desktop : pas de scroll ; mobile : scroll interne OK
+            overflowX: 'hidden',
             display: 'grid',
-            gridTemplateColumns: '1fr 1fr',
+            gridTemplateColumns: { xs: '1fr', md: '1fr 1fr' }, // 1 col en mobile
             boxSizing: 'border-box',
           }}
         >
@@ -536,6 +539,7 @@ export default function Formations() {
           <Box
             aria-hidden
             sx={{
+              display: { xs: 'none', md: 'block' },
               position: 'absolute',
               left: '50%',
               top: 0,
