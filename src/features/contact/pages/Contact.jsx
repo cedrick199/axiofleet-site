@@ -1,6 +1,5 @@
-// src/features/contact/pages/Contact.jsx
 import * as React from 'react';
-import { useMemo, useEffect } from 'react';
+import { useMemo, useEffect, useState } from 'react';
 import { Box, Container, Stack, Typography } from '@mui/material';
 import { useLocation } from 'react-router-dom';
 import Seo from '@/lib/seo/Seo.jsx';
@@ -50,7 +49,7 @@ export default function Contact() {
     }
   }, [parsed.modules, parsed.source]);
 
-  // Empêche le scroll global tant que cette page est montée
+  // Empêche le scroll global tant que cette page est montée (desktop non scrollable)
   useEffect(() => {
     const prevHtml = document.documentElement.style.overflowY;
     const prevBody = document.body.style.overflowY;
@@ -60,6 +59,18 @@ export default function Contact() {
       document.documentElement.style.overflowY = prevHtml;
       document.body.style.overflowY = prevBody;
     };
+  }, []);
+
+  // Mesure simple du footer pour protéger le CTA (footer fixe)
+  const [footerH, setFooterH] = useState(56);
+  useEffect(() => {
+    const measure = () => {
+      const f = document.querySelector('footer');
+      setFooterH(Math.max(40, f?.offsetHeight || 56));
+    };
+    measure();
+    window.addEventListener('resize', measure);
+    return () => window.removeEventListener('resize', measure);
   }, []);
 
   const srOnly = {
@@ -77,10 +88,10 @@ export default function Contact() {
         canonical="https://www.axiofleet.com/contact"
       />
 
-      {/* Section blueprint plein écran */}
+      {/* Section blueprint plein écran : hauteur = 100dvh - header, pas de dépassement horizontal */}
       <Box
         sx={{
-          height: '100dvh',
+          height: 'calc(100dvh - var(--header-h, 56px))',
           overflow: 'hidden',
           position: 'relative',
           background:
@@ -99,6 +110,7 @@ export default function Contact() {
           },
           display: 'flex',
           flexDirection: 'column',
+          maxWidth: '100vw',
         }}
       >
         <Container
@@ -119,8 +131,8 @@ export default function Contact() {
             Contact — Catalogue Formations
           </Typography>
 
-          <Stack spacing={0.25} sx={{ flex: '0 0 auto' }}>
-            <Typography variant="h6" sx={{ fontWeight: 800 }}>
+          <Stack spacing={0.25} sx={{ flex: '0 0 auto', minWidth: 0 }}>
+            <Typography variant="h6" sx={{ fontWeight: 800, overflowWrap: 'anywhere' }}>
               Catalogue Formations
             </Typography>
             <Typography variant="body2" color="text.secondary" sx={{ maxWidth: 740 }}>
@@ -128,7 +140,17 @@ export default function Contact() {
             </Typography>
           </Stack>
 
-          <Box sx={{ flex: 1, minHeight: 0 }}>
+          {/* Zone scrollable interne (mobile) avec padding bas au-dessus du footer fixe */}
+          <Box
+            sx={{
+              flex: 1,
+              minHeight: 0,
+              overflowY: 'auto',
+              overflowX: 'hidden',
+              pb: `calc(${footerH}px + 16px + env(safe-area-inset-bottom))`,
+              pr: 0.5,
+            }}
+          >
             <ContactForm
               modules={parsed.modules}
               modulesRaw={parsed.modules_raw}

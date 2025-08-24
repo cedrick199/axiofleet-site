@@ -218,8 +218,18 @@ function CatalogueProgramsModal({ title, open, onClose, programs, catalog, kind 
       scroll="paper"
       slotProps={{ paper: { sx: { bgcolor: 'background.default' } } }}
     >
-      <DialogTitle id={`catalogue-title-${kind}`} sx={{ display: 'flex', alignItems: 'center', gap: 2, pr: 1 }}>
-        <Typography variant="h5" component="span" sx={{ flexGrow: 1 }}>
+      <DialogTitle
+        id={`catalogue-title-${kind}`}
+        sx={{
+          display: 'flex',
+          alignItems: 'center',
+          gap: 2,
+          pr: 1,
+          flexWrap: 'wrap',             // <-- évite le dépassement
+          '& .MuiTypography-root': { minWidth: 0 },
+        }}
+      >
+        <Typography variant="h5" component="span" sx={{ flexGrow: 1, minWidth: 0, overflowWrap: 'anywhere' }}>
           {title}
         </Typography>
         <Chip label={`${selectedCount} sélection(s)`} size="small" sx={{ borderRadius: '999px' }} />
@@ -234,6 +244,8 @@ function CatalogueProgramsModal({ title, open, onClose, programs, catalog, kind 
             display: 'grid',
             gridTemplateColumns: smDown ? '1fr' : '0.9fr 1.6fr 1.1fr',
             minHeight: 'calc(100dvh - 136px)',
+            maxWidth: '100vw',           // <-- pas plus large que l’écran
+            overflowX: 'hidden',         // <-- coupe tout dépassement horizontal
           }}
         >
           {/* Colonne 1 : liste des formations */}
@@ -245,9 +257,20 @@ function CatalogueProgramsModal({ title, open, onClose, programs, catalog, kind 
                 value={current?.id || ''}
                 onChange={(e) => setCurrentId(e.target.value)}
                 aria-label="Choisir une formation"
+                sx={{
+                  '& .MuiSelect-select': {
+                    whiteSpace: 'normal',   // <-- autorise le retour à la ligne
+                    lineHeight: 1.25,
+                    py: 1,
+                    wordBreak: 'break-word',
+                    overflowWrap: 'anywhere',
+                  },
+                }}
               >
                 {resolved.map((p) => (
-                  <MenuItem key={p.id} value={p.id}>{p.title}</MenuItem>
+                  <MenuItem key={p.id} value={p.id} sx={{ whiteSpace: 'normal' }}>
+                    {p.title}
+                  </MenuItem>
                 ))}
               </Select>
             ) : (
@@ -263,13 +286,17 @@ function CatalogueProgramsModal({ title, open, onClose, programs, catalog, kind 
                       border: '1px solid',
                       borderColor: p.id === current?.id ? 'primary.main' : 'rgba(255,255,255,0.10)',
                       backgroundColor: p.id === current?.id ? 'rgba(25,118,210,0.10)' : 'transparent',
+                      '& .MuiListItemText-root': { minWidth: 0 }, // <-- permet au texte d’enrouler
                     }}
                   >
                     <ListItemText
                       primary={p.title}
                       secondary={p.provider || null}
                       slotProps={{
-                        primary: { variant: 'body2', sx: { fontWeight: 700 } },
+                        primary: {
+                          variant: 'body2',
+                          sx: { fontWeight: 700, whiteSpace: 'normal', overflowWrap: 'anywhere', wordBreak: 'break-word', lineHeight: 1.3 },
+                        },
                         secondary: { variant: 'caption', sx: { opacity: 0.75 } },
                       }}
                     />
@@ -281,8 +308,8 @@ function CatalogueProgramsModal({ title, open, onClose, programs, catalog, kind 
 
           {/* Colonne 2 : cartes modules */}
           <Box sx={{ p: 2 }}>
-            <Stack direction="row" spacing={1} alignItems="center" sx={{ mb: 1 }}>
-              <Typography variant="subtitle1" sx={{ flexGrow: 1 }}>
+            <Stack direction="row" spacing={1} alignItems="center" sx={{ mb: 1, flexWrap: 'wrap' }}>
+              <Typography variant="subtitle1" sx={{ flexGrow: 1, minWidth: 0, overflowWrap: 'anywhere' }}>
                 {current?.title || 'Formation'}
               </Typography>
               <Button size="small" onClick={selectAll}>Tout sélectionner</Button>
@@ -298,14 +325,23 @@ function CatalogueProgramsModal({ title, open, onClose, programs, catalog, kind 
                 return (
                   <Box key={m.id} sx={sxCard(checked)}>
                     {/* Header carte */}
-                    <Stack direction="row" alignItems="center" spacing={1}>
+                    <Stack direction="row" alignItems="center" spacing={1} sx={{ flexWrap: 'wrap' }}>
                       <Checkbox
                         checked={checked}
                         onChange={() => toggle(m)}
                         slotProps={{ input: { 'aria-label': `${checked ? 'Désélectionner' : 'Sélectionner'} ${m.title}` } }}
                         sx={{ p: 0.5 }}
                       />
-                      <Typography variant="body1" sx={{ fontWeight: 700, flexGrow: 1 }}>
+                      <Typography
+                        variant="body1"
+                        sx={{
+                          fontWeight: 700,
+                          flexGrow: 1,
+                          minWidth: 0,
+                          overflowWrap: 'anywhere',   // <-- casse les longues chaînes
+                          wordBreak: 'break-word',
+                        }}
+                      >
                         {m.ref ? `${m.ref} — ` : ''}{m.title}
                       </Typography>
                     </Stack>
@@ -376,8 +412,8 @@ function CatalogueProgramsModal({ title, open, onClose, programs, catalog, kind 
                   key={`recap-${module.id}`}
                   sx={{ border: '1px dashed', borderColor: 'divider', borderRadius: 2, p: 1 }}
                 >
-                  <Stack direction="row" justifyContent="space-between" alignItems="center">
-                    <Typography variant="body2" sx={{ fontWeight: 700 }}>
+                  <Stack direction="row" justifyContent="space-between" alignItems="center" sx={{ gap: 1, flexWrap: 'wrap' }}>
+                    <Typography variant="body2" sx={{ fontWeight: 700, minWidth: 0, overflowWrap: 'anywhere' }}>
                       {module.ref ? `【${module.ref}】 ` : ''}{module.title}
                     </Typography>
                     <Button size="small" onClick={() => setSelected((p) => {
@@ -402,7 +438,16 @@ function CatalogueProgramsModal({ title, open, onClose, programs, catalog, kind 
         </Box>
       </DialogContent>
 
-      <DialogActions sx={{ p: 2, position: 'sticky', bottom: 0, bgcolor: 'background.default', borderTop: '1px solid', borderColor: 'divider' }}>
+      <DialogActions
+        sx={{
+          p: 2,
+          position: 'sticky',
+          bottom: 0,
+          bgcolor: 'background.default',
+          borderTop: '1px solid',
+          borderColor: 'divider',
+        }}
+      >
         <Button onClick={onClose} variant="outlined">Annuler</Button>
         <Button onClick={handleSubmit} variant="contained" disabled={!selectedCount}>
           Envoyer la demande

@@ -1,4 +1,3 @@
-// src/features/contact/components/ContactForm.jsx
 import * as React from 'react';
 import PropTypes from 'prop-types';
 import {
@@ -94,7 +93,7 @@ function ModulesRecap({ modules = [], onClear, source }) {
             backdropFilter: 'blur(2px)',
           }}
         >
-          <Typography variant="subtitle2" sx={{ fontWeight: 700, lineHeight: 1.2 }}>
+          <Typography variant="subtitle2" sx={{ fontWeight: 700, lineHeight: 1.2, overflowWrap: 'anywhere' }}>
             {m?.ref ? `【${m.ref}】 ` : ''}{m?.title || 'Module'}
           </Typography>
           <Typography variant="caption" color="text.secondary" sx={{ display: 'block', mt: 0.25 }}>
@@ -106,7 +105,7 @@ function ModulesRecap({ modules = [], onClear, source }) {
       <Typography variant="body2" sx={{ fontWeight: 600 }}>
         {modules.length} élément{modules.length > 1 ? 's' : ''} sélectionné{modules.length > 1 ? 's' : ''}.
       </Typography>
-      <Stack direction="row" spacing={2}>
+      <Stack direction="row" spacing={2} flexWrap="wrap">
         {source ? <MuiLink href={source} underline="hover" color="primary">Modifier (retour au catalogue)</MuiLink> : null}
         <MuiLink component="button" type="button" onClick={onClear} underline="hover" color="inherit">Vider l’aperçu</MuiLink>
       </Stack>
@@ -234,7 +233,7 @@ export default function ContactForm({
     },
     '& .MuiFormHelperText-root': { color: 'rgba(255,255,255,0.72)' },
   };
-  const panelCellSx = { height: '100%', minHeight: 0 };
+  const panelCellSx = { height: '100%', minHeight: 0, maxWidth: '100%' };
 
   const subjectLabel = lockedSubjectValue === 'catalog_ens'
     ? 'Catalogue — Enseignements (Bachelor/Master/Écoles)'
@@ -246,7 +245,7 @@ export default function ContactForm({
   /* render */
   return (
     <Box component="form" onSubmit={onSubmit}
-      sx={{ height: '100%', minHeight: 0, display: 'flex', flexDirection: 'column', position: 'relative' }}
+      sx={{ height: '100%', minHeight: 0, display: 'flex', flexDirection: 'column', position: 'relative', maxWidth: '100%' }}
       noValidate
     >
       <Stack spacing={1} sx={{ flex: 1, minHeight: 0 }}>
@@ -266,7 +265,7 @@ export default function ContactForm({
         />
 
         {/* zone haute */}
-        <Grid container spacing={1}>
+        <Grid container spacing={1} sx={{ minWidth: 0 }}>
           <Grid item xs={12} sm={6} md={3}>
             <TextField required label="Prénom" name="prenom" value={data.prenom} onChange={onChange}
               fullWidth error={!!errors.prenom} helperText={errors.prenom ? 'Champ requis' : ' '} sx={tfSx}
@@ -303,9 +302,10 @@ export default function ContactForm({
                   p: 1, borderRadius: 2,
                   borderColor: 'rgba(0,229,255,0.35)', bgcolor: 'rgba(3,16,30,0.35)',
                   display: 'flex', alignItems: 'center', gap: 1.5,
+                  flexWrap: 'wrap', minWidth: 0, // <-- wrap & pas de débordement
                 }}
               >
-                <Typography variant="subtitle2" sx={{ fontWeight: 700 }}>
+                <Typography variant="subtitle2" sx={{ fontWeight: 700, overflowWrap: 'anywhere' }}>
                   Sujet : {subjectLabel}
                 </Typography>
                 <Typography variant="caption" color="text.secondary">{subjectHint}</Typography>
@@ -327,15 +327,15 @@ export default function ContactForm({
           )}
         </Grid>
 
-        {/* PANNEAUX : même hauteur ; max 70% de la hauteur du formulaire ; scroll interne */}
+        {/* PANNEAUX : scroll interne en md+, layout fluide en mobile */}
         <Box
           sx={{
-            flex: '1 1 0',               // prend le reste
-            maxHeight: '50%',            // <= 70% du form
+            flex: '1 1 0',
             minHeight: 0,
             display: 'grid',
             gridTemplateColumns: { xs: '1fr', md: '1fr 1fr' },
             gap: 1.5,
+            maxWidth: '100%',
           }}
         >
           {/* Message */}
@@ -352,9 +352,9 @@ export default function ContactForm({
               placeholder="Décrivez votre besoin (dates, référentiel, volume, contraintes, etc.)"
               sx={{
                 ...tfSx,
-                height: '80%',
-                '& .MuiOutlinedInput-root': { height: '100%', alignItems: 'stretch' },
-                '& textarea': { height: '100% !important', resize: 'none', overflow: 'auto' },
+                height: { xs: 'auto', md: '80%' },         // <-- pas de pourcentage rigide en mobile
+                '& .MuiOutlinedInput-root': { height: { xs: 'auto', md: '100%' }, alignItems: 'stretch' },
+                '& textarea': { height: { xs: 'auto', md: '100% !important' }, resize: 'none', overflow: 'auto' },
               }}
               slotProps={{ input: { maxLength: MESSAGE_MAX + 100 } }}
             />
@@ -365,7 +365,7 @@ export default function ContactForm({
             <Paper
               elevation={0}
               sx={{
-                height: '75%',
+                height: { xs: 'auto', md: '75%' },         // <-- fluide en mobile
                 p: 1.25,
                 display: 'flex', flexDirection: 'column',
                 borderRadius: 2,
