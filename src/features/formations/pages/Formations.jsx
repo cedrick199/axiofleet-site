@@ -1,5 +1,6 @@
 // src/features/formations/pages/Formations.jsx
 import * as React from 'react';
+import PropTypes from 'prop-types';
 import {
   Box,
   Button,
@@ -139,7 +140,7 @@ function CatalogueProgramsModal({ title, open, onClose, programs, catalog, kind 
       if (!entry) return prev;
       return { ...prev, [id]: { ...entry, [field]: value } };
     });
-    try { window.plausible?.('CATALOGUE_Dates_Set', { props: { kind, module_id: id, field} }); } catch {}
+    try { window.plausible?.('CATALOGUE_Dates_Set', { props: { kind, module_id: id, field } }); } catch {}
   };
 
   const setRole = (id, role) => {
@@ -299,11 +300,11 @@ function CatalogueProgramsModal({ title, open, onClose, programs, catalog, kind 
                     {/* Header carte */}
                     <Stack direction="row" alignItems="center" spacing={1}>
                       <Checkbox
-                      checked={checked}
-                       onChange={() => toggle(m)}
+                        checked={checked}
+                        onChange={() => toggle(m)}
                         slotProps={{ input: { 'aria-label': `${checked ? 'Désélectionner' : 'Sélectionner'} ${m.title}` } }}
-                         sx={{ p: 0.5 }}
-                       />
+                        sx={{ p: 0.5 }}
+                      />
                       <Typography variant="body1" sx={{ fontWeight: 700, flexGrow: 1 }}>
                         {m.ref ? `${m.ref} — ` : ''}{m.title}
                       </Typography>
@@ -411,6 +412,37 @@ function CatalogueProgramsModal({ title, open, onClose, programs, catalog, kind 
   );
 }
 
+/* ---------- PropTypes (correction Sonar S6774) ---------- */
+const moduleShape = PropTypes.shape({
+  id: PropTypes.string.isRequired,
+  ref: PropTypes.string,
+  title: PropTypes.string.isRequired,
+  summary: PropTypes.string,
+  group: PropTypes.string,
+  level: PropTypes.string,
+  duration: PropTypes.string,
+  mode: PropTypes.string,
+  tags: PropTypes.arrayOf(PropTypes.string),
+  eligibleJury: PropTypes.bool,
+});
+
+const programShape = PropTypes.shape({
+  id: PropTypes.string.isRequired,
+  title: PropTypes.string.isRequired,
+  moduleRefs: PropTypes.arrayOf(PropTypes.string).isRequired,
+  provider: PropTypes.string,
+});
+
+CatalogueProgramsModal.propTypes = {
+  title: PropTypes.string.isRequired,
+  open: PropTypes.bool.isRequired,
+  onClose: PropTypes.func.isRequired,
+  programs: PropTypes.arrayOf(programShape).isRequired,
+  catalog: PropTypes.arrayOf(moduleShape).isRequired,
+  kind: PropTypes.oneOf(['ENSEIGNEMENTS', 'CONDUCTEURS']).isRequired,
+};
+/* ------------------------------------------------------- */
+
 export default function Formations() {
   const go = useGo();
   const H = useAvailableHeight();
@@ -453,7 +485,7 @@ export default function Formations() {
   // Styles communs
   const copyBoxSx = { maxWidth: 760 };
   const titleSx = { fontWeight: 900, letterSpacing: 0.2, lineHeight: 1.2, mb: 1.25 };
-  const incitationSx = { mt: 1.8, fontStyle: 'italic', opacity: 0.95 }; // ⬅️ utilisé ci-dessous
+  const incitationSx = { mt: 1.8, fontStyle: 'italic', opacity: 0.95 };
 
   return (
     <>

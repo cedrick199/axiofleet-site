@@ -20,7 +20,7 @@ function PhotoColumn({
   const overlayDisplay =
     overlay === "always" ? { xs: "block", md: "block" } : { xs: "block", md: "none" };
   const CONTENT_MAX = 720;
-  const HEADER_MIN_MD = 190; // ✅ même “capot” sur md+ pour aligner le début des paragraphes
+  const HEADER_MIN_MD = 190;
 
   return (
     <Box
@@ -59,7 +59,7 @@ function PhotoColumn({
         sx={{ position: "relative", zIndex: 1, maxWidth: { md: CONTENT_MAX } }}
         spacing={{ xs: 1, md: 1.15 }}
       >
-        {/* ✅ EN-TÊTE À HAUTEUR FIXE SUR DESKTOP : eyebrow + titre + séparateur */}
+        {/* En-tête : eyebrow + titre + séparateur */}
         <Box
           sx={{
             display: "grid",
@@ -130,7 +130,7 @@ function PhotoColumn({
           </Stack>
         )}
 
-        {/* Puces sémantiques */}
+        {/* Puces */}
         {bulletPoints.length > 0 && (
           <Stack
             component="ul"
@@ -266,20 +266,14 @@ export default function Presentation() {
           addRightDivider
           overlay="always"
           cta={[
+            // ✅ Bouton unique, centré dans la colonne
             <Button
               key="f_primary"
               variant="contained"
-              onClick={() => go("/contact", "CTA_Contact_Formation_Primary")}
-            >
-              Renforcer mon équipe pédagogique
-            </Button>,
-            <Button
-              key="f_secondary"
-              variant="outlined"
-              color="secondary"
               onClick={() => go("/formations", "CTA_Formation_Modules")}
+              sx={{ alignSelf: "center", width: "auto" }}
             >
-              Voir les modules de formation
+              Voir les modules & programmes
             </Button>,
           ]}
         />
