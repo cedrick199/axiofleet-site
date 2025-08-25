@@ -32,7 +32,6 @@ export default function Expertises() {
   const [filter, setFilter] = React.useState("Tout");
   const [expanded, setExpanded] = React.useState(() => new Set()); // tous fermés par défaut
 
-
   const handleExpand = (id) => {
     setExpanded((prev) => {
       const next = new Set(prev);
@@ -74,15 +73,26 @@ export default function Expertises() {
               Les modules présentés ci-dessous sont des <strong>exemples</strong>. La liste n’est <strong>pas exhaustive</strong> : nous couvrons d’autres besoins du transport (messagerie, TP/BTP, affrètement, capacité, data, TMS/MDM) et <strong>adaptons le périmètre</strong> à votre contexte — du module ciblé au <strong>plan d’exécution complet</strong>.
             </Typography>
           </Box>
+
+          {/* CTA (sans contact direct visible) */}
           <Stack direction="row" spacing={1} sx={{ flexWrap: "wrap" }}>
             <Button
               variant="contained"
               size="large"
               component={RouterLink}
-              to="/consulting/contact?modal=1"
-              data-event="expertises_cta_call_click"
+              to="/consulting/ressources"
+              data-event="expertises_cta_resources_click"
             >
-              Appel 30 min
+              Ressources
+            </Button>
+            <Button
+              variant="outlined"
+              size="large"
+              component={RouterLink}
+              to="/consulting/tarifs"
+              data-event="expertises_cta_pricing_click"
+            >
+              Tarifs
             </Button>
             <Button
               variant="outlined"

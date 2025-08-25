@@ -1,0 +1,12 @@
+BEGIN:VCARD
+VERSION:3.0
+N:Dubois;Cédrick;;;
+FN:Cédrick Dubois
+ORG:Axiofleet — Formation & Conseil
+TITLE:Consultant transport TRM
+EMAIL;TYPE=INTERNET,PREF:c.dubois@axiofleet.com
+TEL;TYPE=CELL,VOICE:+33670103998
+URL:https://axiofleet.com
+ADR;TYPE=WORK:;; ; ; ;France
+REV:2025-08-25T12:00:00Z
+END:VCARD
