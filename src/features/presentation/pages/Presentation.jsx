@@ -1,5 +1,6 @@
 // src/features/presentation/pages/Presentation.jsx
 import React, { useEffect } from "react";
+import PropTypes from "prop-types";
 import { Box, Button, Stack, Typography } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import Seo from "../../../lib/seo/Seo.jsx";
@@ -9,9 +10,9 @@ function PhotoColumn({
   id,
   eyebrow,
   title,
-  paragraphs = [],          // [{ id, content: <JSX/> }]
-  bulletPoints = [],        // strings uniques
-  cta = [],                 // <Button/> avec keys stables
+  paragraphs = [],
+  bulletPoints = [],
+  cta = [],
   bgImage,
   bgPosMobile = "center",
   addRightDivider = false,
@@ -132,11 +133,7 @@ function PhotoColumn({
 
         {/* Puces */}
         {bulletPoints.length > 0 && (
-          <Stack
-            component="ul"
-            spacing={{ xs: 0.8, md: 1 }}
-            sx={{ pl: 0, m: 0, listStyle: "none" }}
-          >
+          <Stack component="ul" spacing={{ xs: 0.8, md: 1 }} sx={{ pl: 0, m: 0, listStyle: "none" }}>
             {bulletPoints.map((t) => (
               <Stack key={t} direction="row" spacing={1} alignItems="flex-start" component="li">
                 <Box
@@ -195,6 +192,35 @@ function PhotoColumn({
     </Box>
   );
 }
+
+/* ✅ Validation des props + valeurs par défaut */
+PhotoColumn.propTypes = {
+  id: PropTypes.string.isRequired,
+  eyebrow: PropTypes.string,
+  title: PropTypes.string.isRequired,
+  paragraphs: PropTypes.arrayOf(
+    PropTypes.shape({
+      id: PropTypes.string.isRequired,
+      content: PropTypes.node.isRequired,
+    })
+  ),
+  bulletPoints: PropTypes.arrayOf(PropTypes.string),
+  cta: PropTypes.arrayOf(PropTypes.element),
+  bgImage: PropTypes.string.isRequired,
+  bgPosMobile: PropTypes.string,
+  addRightDivider: PropTypes.bool,
+  overlay: PropTypes.oneOf(["always", "mobile"]),
+};
+
+PhotoColumn.defaultProps = {
+  eyebrow: undefined,
+  paragraphs: [],
+  bulletPoints: [],
+  cta: [],
+  bgPosMobile: "center",
+  addRightDivider: false,
+  overlay: "always",
+};
 
 export default function Presentation() {
   const navigate = useNavigate();
@@ -266,14 +292,13 @@ export default function Presentation() {
           addRightDivider
           overlay="always"
           cta={[
-            // ✅ Bouton unique, centré dans la colonne
             <Button
               key="f_primary"
               variant="contained"
               onClick={() => go("/formations", "CTA_Formation_Modules")}
               sx={{ alignSelf: "center", width: "auto" }}
             >
-              Voir les modules & programmes
+              Je cherche un formateur
             </Button>,
           ]}
         />
@@ -319,15 +344,7 @@ export default function Presentation() {
           overlay="always"
           cta={[
             <Button key="c1" variant="contained" onClick={() => go("/conseil", "CTA_Conseil")}>
-              Découvrir le conseil
-            </Button>,
-            <Button
-              key="c2"
-              variant="outlined"
-              color="secondary"
-              onClick={() => go("/contact", "CTA_Devis")}
-            >
-              Demander un devis
+              Voir le hub Consulting
             </Button>,
           ]}
         />

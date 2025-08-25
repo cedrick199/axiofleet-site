@@ -40,7 +40,7 @@ export default function Header() {
           <Button component={Link} to="/" color="inherit" sx={{ fontWeight: 800 }}>axiofleet</Button>
           <span style={{ flex: 1 }} />
           <Button component={Link} to="/formations" color="inherit">Formations</Button>
-          <Button component={Link} to="/conseil" color="inherit">Conseil</Button>
+          <Button component={Link} to="/consulting" color="inherit">Conseil</Button>
           <Button component={Link} to="/tms" color="inherit">TMS</Button>
           <Button component={Link} to="/blog" color="inherit">Blog</Button>
           <Button component={Link} to="/contact" color="inherit">Contact</Button>
@@ -49,3 +49,4 @@ export default function Header() {
     </AppBar>
   );
 }
+
