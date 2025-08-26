@@ -307,14 +307,14 @@ export default function Presentation() {
         <PhotoColumn
           id="col-conseil"
           eyebrow="Consulting TPE-PME"
-          title="Analyse des processus et pilotage terrain au service de votre rentabilité."
+          title="Conseil TRM & performance globale"
           paragraphs={[
             {
               id: "cons-p1",
               content: (
                 <>
                   Audit des <strong>processus d’exploitation</strong> de bout en bout,
-                  identification des <strong>frictions</strong> et des <strong>doublons</strong>,
+                  identification des <strong>frictions</strong>,
                   lecture objective de la <strong>rentabilité</strong>.
                 </>
               ),
@@ -323,12 +323,9 @@ export default function Presentation() {
               id: "cons-p2",
               content: (
                 <>
-                  L’accompagnement s’appuie sur vos <strong>méthodes</strong>, vos{" "}
-                  <strong>outils</strong> et votre <strong>rythme</strong> de travail — sans modèle
-                  plaqué — afin de clarifier les <strong>responsabilités</strong> et d’installer un{" "}
-                  <strong>pilotage terrain</strong> pragmatique. Restitution courte, plan d’actions{" "}
-                  <strong>30/60/90 jours</strong>. Des <strong>outils informatiques adaptés</strong>{" "}
-                  peuvent accompagner le déploiement si nécessaire, <em>sans complexifier</em>.
+                  Nous apportons un regard externe pour reprendre la main sur l’exploitation
+                  et redonner de la marge. Diagnostic terrain rapide, priorités claires, décisions tenables. 
+                  Plan 30/60/90 orienté résultats : fiabilité accrue, charge lissée, prix maîtrisés.
                 </>
               ),
             },
@@ -336,7 +333,6 @@ export default function Presentation() {
           bulletPoints={[
             "Analyse des processus & responsabilités (flux lisibles, sans doublons)",
             "Lecture économique pragmatique : coût de revient, prix, cash",
-            "Plan d’actions priorisé 30/60/90 jours, exécution accompagnée",
           ]}
           bgImage="/presentation/conseil-color-clean.webp?v=20250822-2"
           bgPosMobile="center 25%"

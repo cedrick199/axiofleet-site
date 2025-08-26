@@ -1,7 +1,7 @@
-// src/features/contact/pages/contact.jsx (ou ton chemin exact)
+// src/features/contact/pages/Contact.jsx
 import * as React from 'react';
 import { useMemo, useEffect, useState } from 'react';
-import { Box, Container, Stack, Typography, Button, IconButton, Menu, MenuItem, ListItemIcon, ListItemText } from '@mui/material';
+import { Box, Container, Stack, Typography, IconButton, Menu, MenuItem, ListItemIcon, ListItemText } from '@mui/material';
 import MailOutlineRoundedIcon from '@mui/icons-material/MailOutlineRounded';
 import CallRoundedIcon from '@mui/icons-material/CallRounded';
 import DownloadRoundedIcon from '@mui/icons-material/DownloadRounded';
@@ -19,15 +19,21 @@ function useQuery() {
   const { search } = useLocation();
   return useMemo(() => new URLSearchParams(search), [search]);
 }
+
 function parseModulesParam(raw) {
   if (!raw) return { list: [], raw: '' };
   const decoded = decodeURIComponent(raw);
-  const list = decoded.split(';').map(s => s.trim()).filter(Boolean).map((item) => {
-    const [ref = '', title = '', start = '', end = '', role = ''] = item.split('|');
-    return { ref, title, start, end, role };
-  });
+  const list = decoded
+    .split(';')
+    .map(s => s.trim())
+    .filter(Boolean)
+    .map((item) => {
+      const [ref = '', title = '', start = '', end = '', role = ''] = item.split('|');
+      return { ref, title, start, end, role };
+    });
   return { list, raw: decoded };
 }
+
 function chooseLockedSubject(subjectFromQuery) {
   const s = (subjectFromQuery || '').toUpperCase();
   if (s.includes('ENSEIGNEMENT')) return 'catalog_ens';
@@ -36,6 +42,7 @@ function chooseLockedSubject(subjectFromQuery) {
 
 export default function Contact() {
   const q = useQuery();
+
   const parsed = useMemo(() => {
     const source = q.get('source') || '';
     const subject = q.get('subject') || '';
@@ -45,10 +52,13 @@ export default function Contact() {
 
   useEffect(() => {
     if (parsed.modules.length > 0) {
-      track('Contact_Viewed_With_Modules', { props: { count: parsed.modules.length, source: parsed.source || undefined } });
+      track('Contact_Viewed_With_Modules', {
+        props: { count: parsed.modules.length, source: parsed.source || undefined },
+      });
     }
   }, [parsed.modules, parsed.source]);
 
+  // Empêche le scroll global tant que cette page est montée (desktop non scrollable)
   useEffect(() => {
     const prevHtml = document.documentElement.style.overflowY;
     const prevBody = document.body.style.overflowY;
@@ -60,6 +70,7 @@ export default function Contact() {
     };
   }, []);
 
+  // Mesure simple du footer pour protéger le CTA (footer fixe)
   const [footerH, setFooterH] = useState(56);
   useEffect(() => {
     const measure = () => {
@@ -71,7 +82,11 @@ export default function Contact() {
     return () => window.removeEventListener('resize', measure);
   }, []);
 
-  const srOnly = { position: 'absolute', width: 1, height: 1, padding: 0, margin: -1, overflow: 'hidden', clip: 'rect(0 0 0 0)', whiteSpace: 'nowrap', border: 0 };
+  const srOnly = {
+    position: 'absolute', width: 1, height: 1, padding: 0, margin: -1,
+    overflow: 'hidden', clip: 'rect(0 0 0 0)', whiteSpace: 'nowrap', border: 0,
+  };
+
   const lockedSubject = chooseLockedSubject(parsed.subject);
 
   // Menu "Autres options"
@@ -86,6 +101,7 @@ export default function Contact() {
         canonical="https://www.axiofleet.com/contact"
       />
 
+      {/* Section blueprint plein écran */}
       <Box
         sx={{
           height: 'calc(100dvh - var(--header-h, 56px))',
@@ -149,7 +165,8 @@ export default function Contact() {
                 anchorEl={anchorEl}
                 open={open}
                 onClose={() => setAnchorEl(null)}
-                MenuListProps={{ dense: true }}
+                // ✅ remplace MenuListProps déprécié
+                slotProps={{ list: { dense: true } }}
               >
                 <MenuItem component="a" href={`mailto:${AXIO_MAIL}`} onClick={() => window?.plausible?.('contact_menu_email_click')}>
                   <ListItemIcon><MailOutlineRoundedIcon fontSize="small" /></ListItemIcon>
@@ -171,7 +188,7 @@ export default function Contact() {
             </Typography>
           </Stack>
 
-          {/* Zone scrollable interne */}
+          {/* Zone scrollable interne (mobile) avec padding bas au-dessus du footer fixe */}
           <Box
             sx={{
               flex: 1,
