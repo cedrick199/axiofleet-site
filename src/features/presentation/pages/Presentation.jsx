@@ -340,7 +340,7 @@ export default function Presentation() {
           overlay="always"
           cta={[
             <Button key="c1" variant="contained" onClick={() => go("/conseil", "CTA_Conseil")}>
-              Voir le hub Consulting
+              DÉCOUVRIR L’OFFRE
             </Button>,
           ]}
         />
